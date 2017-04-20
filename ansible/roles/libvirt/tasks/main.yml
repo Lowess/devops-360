@@ -1,7 +1,7 @@
 ---
 # tasks file for libvirt
 
-- name: Provision VMs
+- name: Define VM domains from XML templates
   virt:
     command: define
     name: "{{ item.1.name }}"
@@ -9,15 +9,9 @@
     uri: 'qemu:///system'
   with_indexed_items: "{{ libvirt_vms }}"
 
-# command: virt-install -n {{ item.name }}
-#     -r {{ item.mem }}
-#     --vcpus {{ item.cpu }}
-#     --location {{ item.url }}
-#     --os-type {{ item.os.type }}
-#     --os-variant {{ item.os.variant }}
-#     --network network=default
-#     --graphics vnc
-#     --{{item.virt_hypervisor}}
-#     --virt-type {{ item.virt_type }}
-#     --disk size={{item.disk.size}},path={{item.disk.path}}/{{item.name}}.img
-#     --noautoconsole
+- name: Start VMs
+  virt:
+    command: start
+    name: "{{ item.name }}"
+    uri: 'qemu:///system'
+  withitems: "{{ libvirt_vms }}"
