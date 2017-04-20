@@ -1,16 +1,9 @@
 ---
 # defaults file for libvirt
 
+libvirt_original_template: ubuntu0
+
+libvirt_ip_prefix: '172.16.130.'
+
 libvirt_vms:
   - name: ubuntu-test
-    url: http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/
-    cpu: 1
-    mem: 768
-    virt_type: kvm
-    virt_hypervisor: hvm
-    # os:
-    #   type: linux
-    #   variant: ubuntu1404
-    disk:
-      size: 5
-      path: /var/lib/libvirt/images
