@@ -4,7 +4,6 @@
 - name: Gather the list of VM configured on the host
   virt:
     command: status
-    name: "{{ item.1.name }}"
   register: __libvirt_current_vms
 
 # Clone only if the VM has not been already cloned
