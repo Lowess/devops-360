@@ -1,13 +1,18 @@
 ---
 # tasks file for libvirt
 
-- name: Define VM domains from XML templates
-  virt:
-    command: define
-    name: "{{ item.1.name }}"
-    xml: "{{ lookup('template', 'libvirt-vm-template.xml.j2') }}"
-    uri: 'qemu:///system'
-  with_indexed_items: "{{ libvirt_vms }}"
+- name: "Clone ubuntu0 VM into {{ item.1.name }}"
+  command: >
+    virt-clone -o ubuntu0 -n {{ item.1.name }} -f /var/lib/libvirt/images/{{ item.1.name }}.qcow2 -m 52:54:00:b9:d0:%02x % item.0
+  with_items:
+
+# - name: Define VM domains from XML templates
+#   virt:
+#     command: define
+#     name: "{{ item.1.name }}"
+#     xml: "{{ lookup('template', 'libvirt-vm-template.xml.j2') }}"
+#     uri: 'qemu:///system'
+#   with_indexed_items: "{{ libvirt_vms }}"
 
 - name: Start VMs
   virt:
