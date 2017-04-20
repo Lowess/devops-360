@@ -1,0 +1,8 @@
+---
+
+- name: Provision VMs
+  hosts: localhost
+
+  roles:
+    - libvirt
+
