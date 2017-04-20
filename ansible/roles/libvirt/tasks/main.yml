@@ -12,6 +12,11 @@
     name: "{{ libvirt_origin_guest }}"
   register: __libvirt_original_vm_status
 
+- name: Show the status of the original VM
+  debug:
+    msg: "VM status: {{ __libvirt_original_vm_status }}"
+    verbosity: 2
+
 - name: Make sure the orginal VM is shutdown
   virt:
     command: shutdown
