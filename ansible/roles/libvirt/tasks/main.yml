@@ -1,0 +1,22 @@
+---
+# tasks file for libvirt
+
+- name: Provision VMs
+  libvirt:
+    command: define
+    xml: "{{ lookup('template', 'container-template.xml.j2') }}"
+    uri: 'lxc:///'
+  with_items: "{{ libvirt_vms }}"
+
+# command: virt-install -n {{ item.name }}
+#     -r {{ item.mem }}
+#     --vcpus {{ item.cpu }}
+#     --location {{ item.url }}
+#     --os-type {{ item.os.type }}
+#     --os-variant {{ item.os.variant }}
+#     --network network=default
+#     --graphics vnc
+#     --{{item.virt_hypervisor}}
+#     --virt-type {{ item.virt_type }}
+#     --disk size={{item.disk.size}},path={{item.disk.path}}/{{item.name}}.img
+#     --noautoconsole
