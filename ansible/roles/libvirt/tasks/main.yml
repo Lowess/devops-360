@@ -8,7 +8,7 @@
 
 - name: Make sure the orginal VM is stopped
   virt:
-    command: stop
+    command: shutdown
     name: "{{ libvirt_origin_guest }}"
   register: __libvirt_current_vms
 
