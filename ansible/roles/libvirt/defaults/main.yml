@@ -6,11 +6,11 @@ libvirt_vms:
     url: http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/
     cpu: 1
     mem: 768
-    # virt_type: kvm
+    virt_type: kvm
     # virt_hypervisor: hvm
-    os:
-      type: linux
-      variant: ubuntu1404
+    # os:
+    #   type: linux
+    #   variant: ubuntu1404
     disk:
       size: 5
       path: /var/lib/libvirt/images

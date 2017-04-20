@@ -8,7 +8,7 @@
     <vcpu placement='static'>{{ item.1.cpu }}</vcpu>
 
     <os>
-        <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>{{ item.1.os.type }}</type>
+        <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>{{ item.1.os.virt_type }}</type>
         <boot dev='hd'/>
     </os>
 
