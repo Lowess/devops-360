@@ -16,7 +16,7 @@
   virt:
     command: shutdown
     name: "{{ libvirt_origin_guest }}"
-  when: __libvirt_original_vm_status.status == 'running'
+  when: __libvirt_original_vm_status.status != 'shutdown'
 
 # Clone only if the VM has not been already cloned
 - name: Clone the original VM into a new one
@@ -40,7 +40,6 @@
 - name: Start VMs
   virt:
     command: start
-    name: "{{ item.name }}"
-    uri: 'qemu:///system'
-  when: __libvirt_vms_status
-  with_items: "{{ libvirt_vms }}"
+    name: "{{ item.item.name }}"
+  when: item.status != 'running'
+  with_items: "{{ __libvirt_vms_status.results }}"
