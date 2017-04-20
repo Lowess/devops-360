@@ -14,4 +14,4 @@
     command: start
     name: "{{ item.name }}"
     uri: 'qemu:///system'
-  withitems: "{{ libvirt_vms }}"
+  with_items: "{{ libvirt_vms }}"
