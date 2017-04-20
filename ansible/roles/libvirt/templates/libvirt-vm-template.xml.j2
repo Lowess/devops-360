@@ -5,7 +5,7 @@
     <description>VM managed by Ansible</description>
     <memory unit='MB'>{{ item.mem }}</memory>
     <currentMemory unit='MB'>{{ item.mem }}</currentMemory>
-    <vcpu placement='static'>{{ item.vcpu }}</vcpu>
+    <vcpu placement='static'>{{ item.cpu }}</vcpu>
 
     <os>
         <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>{{ item.os.type }}</type>
