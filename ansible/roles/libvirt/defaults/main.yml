@@ -1,7 +1,7 @@
 ---
 # defaults file for libvirt
 
-libvirt_original_template: ubuntu0
+libvirt_origin_guest: ubuntu0
 
 libvirt_ip_prefix: '172.16.130.'
 

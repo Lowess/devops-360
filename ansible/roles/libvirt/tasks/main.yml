@@ -6,10 +6,16 @@
     command: list_vms
   register: __libvirt_current_vms
 
+- name: Make sure the orginal VM is stopped
+  virt:
+    command: stop
+    name: "{{ libvirt_origin_guest }}"
+  register: __libvirt_current_vms
+
 # Clone only if the VM has not been already cloned
-- name: "Clone the template VM into a new one"
+- name: Clone the original VM into a new one
   command: >
-    virt-clone -o ubuntu0 -n {{ item.1.name }} -f /var/lib/libvirt/images/{{ item.1.name }}.qcow2 -m {{ '52:54:00:b9:d0:' ~ ('%02x' % item.0) }}
+    virt-clone -o {{ libvirt_origin_guest }} -n {{ item.1.name }} -f /var/lib/libvirt/images/{{ item.1.name }}.qcow2 -m {{ '52:54:00:b9:d0:' ~ ('%02x' % item.0) }}
   when: item.1.name not in __libvirt_current_vms.list_vms
   with_indexed_items: "{{ libvirt_vms }}"
 
