@@ -3,7 +3,7 @@
 
 - name: "Clone ubuntu0 VM into {{ item.1.name }}"
   command: >
-    virt-clone -o ubuntu0 -n {{ item.1.name }} -f /var/lib/libvirt/images/{{ item.1.name }}.qcow2 -m {{ '52:54:00:b9:d0:%2x' % item.0 }}
+    virt-clone -o ubuntu0 -n {{ item.1.name }} -f /var/lib/libvirt/images/{{ item.1.name }}.qcow2 -m {{ '52:54:00:b9:d0:' ~ ('%2x' % item.0) }}
   with_indexed_items: "{{ libvirt_vms }}"
 
 # - name: Define VM domains from XML templates
