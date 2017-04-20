@@ -25,9 +25,22 @@
   when: item.1.name not in __libvirt_current_vms.list_vms
   with_indexed_items: "{{ libvirt_vms }}"
 
+- name: Check the status of each new VMs
+  virt:
+    command: status
+    name: "{{ item.name }}"
+  register: __libvirt_vms_status
+  with_items: "{{ libvirt_vms }}"
+
+- name: Show the status of each new VMs
+  debug:
+    msg: "VM status: {{ __libvirt_vms_status }}"
+    verbosity: 2
+
 - name: Start VMs
   virt:
     command: start
     name: "{{ item.name }}"
     uri: 'qemu:///system'
+  when: __libvirt_vms_status
   with_items: "{{ libvirt_vms }}"
