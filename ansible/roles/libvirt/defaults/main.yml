@@ -7,7 +7,7 @@ libvirt_vms:
     cpu: 1
     mem: 768
     virt_type: kvm
-    # virt_hypervisor: hvm
+    virt_hypervisor: hvm
     # os:
     #   type: linux
     #   variant: ubuntu1404

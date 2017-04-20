@@ -1,4 +1,4 @@
-<domain type='kvm'>
+<domain type='{{ item.1.virt_type }}'>
     <name>{{ item.1.name }}</name>
     <uuid>{{ item.1.name | to_uuid }}</uuid>
     <title>{{ item.1.name }} VM</title>
@@ -8,7 +8,7 @@
     <vcpu placement='static'>{{ item.1.cpu }}</vcpu>
 
     <os>
-        <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>{{ item.1.os.virt_type }}</type>
+        <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>{{ item.1.os.virt_hypervisor }}</type>
         <boot dev='hd'/>
     </os>
 
