@@ -2,7 +2,7 @@
 # tasks file for libvirt
 
 - name: Provision VMs
-  libvirt:
+  virt:
     command: define
     xml: "{{ lookup('template', 'container-template.xml.j2') }}"
     uri: 'lxc:///'
