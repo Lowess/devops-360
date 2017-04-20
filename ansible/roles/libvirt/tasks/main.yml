@@ -4,6 +4,7 @@
 - name: Provision VMs
   virt:
     command: define
+    name: "{{ item.1.name }}"
     xml: "{{ lookup('template', 'libvirt-vm-template.xml.j2') }}"
     uri: 'lxc:///'
   with_indexed_items: "{{ libvirt_vms }}"
