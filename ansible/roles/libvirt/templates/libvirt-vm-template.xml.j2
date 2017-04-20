@@ -1,14 +1,14 @@
 <domain type='kvm'>
-    <name>{{ item.name }}</name>
-    <uuid>{{ item.name | to_uuid }}</uuid>
-    <title>{{ item.name }} VM</title>
+    <name>{{ item.1.name }}</name>
+    <uuid>{{ item.1.name | to_uuid }}</uuid>
+    <title>{{ item.1.name }} VM</title>
     <description>VM managed by Ansible</description>
-    <memory unit='MB'>{{ item.mem }}</memory>
-    <currentMemory unit='MB'>{{ item.mem }}</currentMemory>
-    <vcpu placement='static'>{{ item.cpu }}</vcpu>
+    <memory unit='MB'>{{ item.1.mem }}</memory>
+    <currentMemory unit='MB'>{{ item.1.mem }}</currentMemory>
+    <vcpu placement='static'>{{ item.1.cpu }}</vcpu>
 
     <os>
-        <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>{{ item.os.type }}</type>
+        <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>{{ item.1.os.type }}</type>
         <boot dev='hd'/>
     </os>
 
@@ -36,7 +36,7 @@
 
         <disk type='file' device='disk'>
             <driver name='qemu' type='qcow2'/>
-            <source file='{{ item.url }}'/>
+            <source file='{{ item.1.url }}'/>
             <target dev='vda' bus='virtio'/>
             <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
         </disk>
@@ -60,7 +60,7 @@
         <controller type='pci' index='0' model='pci-root'/>
 
         <interface type='bridge'>
-            <mac address='52:54:00:b9:d0:0{{ item.index }}'/>
+            <mac address='52:54:00:b9:d0:0{{ item.0 }}'/>
             <source bridge='ccm'/>
             <model type='virtio'/>
             <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>

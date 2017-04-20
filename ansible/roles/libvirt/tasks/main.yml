@@ -6,7 +6,7 @@
     command: define
     xml: "{{ lookup('template', 'libvirt-vm-template.xml.j2') }}"
     uri: 'lxc:///'
-  with_items: "{{ libvirt_vms }}"
+  with_indexed_items: "{{ libvirt_vms }}"
 
 # command: virt-install -n {{ item.name }}
 #     -r {{ item.mem }}
