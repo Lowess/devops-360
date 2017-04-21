@@ -81,6 +81,6 @@
     zone: "{{ libvirt_dns_zone }}"
     value: "{{ libvirt_ip_prefix ~ (item.0 + 1) }}"
     record: "{{ item.1.name }}"
-    key_name: "{{ lookup('pipe', 'cat ' ~ libvirt_dns_key') | regex_replace('^key\s\"(.*)\"\s\{.*$', '\1') }}"
-    key_secret: "{{ lookup('pipe', 'cat ' ~ libvirt_dns_key') | regex_replace('\s*secret\s+\"(.*)\";.*$', '\1') }}"
+    key_name: "{{ lookup('pipe', 'cat ' ~ libvirt_dns_key') | regex_replace('^key\\s\"(.*)\"\\s\{.*$', '\\1') }}"
+    key_secret: "{{ lookup('pipe', 'cat ' ~ libvirt_dns_key') | regex_replace('\\s*secret\\s+\"(.*)\";.*$', \\1') }}"
   with_indexed_items: "{{ libvirt_vms }}"
