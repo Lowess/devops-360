@@ -68,6 +68,11 @@
 ### DNS Configuration
 ################################################################################
 
+- name: Install nsupdate python pip dependency
+  pip:
+    state: present
+    name: dnspython
+
 - name: Configure DNSs for newly created VMs
   nsupdate:
     state: present
