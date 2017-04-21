@@ -1,5 +1,11 @@
+################################################################################
+# > Playbook used to delete VMs running with KVM/QEMU
+#
+# @author: Florian DAMBRINE <@Lowess>
+################################################################################
 ---
-- name: Provision VMs
+
+- name: Delete VMs
   hosts: localhost
   connection: local
   become: yes

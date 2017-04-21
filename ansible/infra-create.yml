@@ -1,14 +1,10 @@
 ################################################################################
-# > Playbook used to provision VMs running with KVM/QEMU
+# > Main playbook used to spin up and configure the entire infrastructure
 #
 # @author: Florian DAMBRINE <@Lowess>
 ################################################################################
 ---
 
-- name: Provision VMs
-  hosts: localhost
-  connection: local
-  become: yes
-
-  roles:
-    - libvirt
+- include: vm-create.yml
+- include: webservers.yml
+- include: databases.yml

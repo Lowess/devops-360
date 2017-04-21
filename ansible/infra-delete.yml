@@ -1,14 +1,8 @@
 ################################################################################
-# > Playbook used to provision VMs running with KVM/QEMU
+# > Main playbook used to delete the entire infrastructure
 #
 # @author: Florian DAMBRINE <@Lowess>
 ################################################################################
 ---
 
-- name: Provision VMs
-  hosts: localhost
-  connection: local
-  become: yes
-
-  roles:
-    - libvirt
+- include: vm-delete.yml
