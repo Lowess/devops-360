@@ -62,14 +62,14 @@
     owner: root
     group: root
     mode: '0644'
-  register: __libvirt_dhcp_updated
+  register: __libvirt_dhcp_entries_updated
   with_indexed_items: "{{ libvirt_vms }}"
 
 - name: Restart DHCP service
   service:
     state: restarted
     name: dhcpd
-  when: __libvirt_dhcp_updated | changed
+  when: __libvirt_dhcp_entries_updated | changed
 
 ################################################################################
 ### DNS Configuration

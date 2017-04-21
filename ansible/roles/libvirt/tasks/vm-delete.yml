@@ -38,12 +38,14 @@
     create: yes
     path: /etc/dhcp/vm-ansible.conf
     line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % (item.0 + libvirt_mac_offset)) }}; fixed-address {{ libvirt_ip_prefix ~ (item.0 + libvirt_ip_offset) }}; }"
+  register: __libvirt_dhcp_entries_deleted
   with_indexed_items: "{{ libvirt_vms }}"
 
 - name: Restart DHCP service
   service:
     state: restarted
     name: dhcpd
+  when: __libvirt_dhcp_entries_deleted | changed
 
 ################################################################################
 ### DNS Configuration
