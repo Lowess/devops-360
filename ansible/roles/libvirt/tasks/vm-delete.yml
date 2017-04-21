@@ -31,7 +31,7 @@
   virt:
     command: undefine
     name: "{{ item.item.name }}"
-  when: item.status == 'shutdown'
+  when: item.status == 'running'
   with_items: "{{ __libvirt_vms_status.results }}"
 
 - name: Remove disk images associated with the old VMs
