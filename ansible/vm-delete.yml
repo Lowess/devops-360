@@ -5,4 +5,4 @@
   become: yes
 
   roles:
-    - libvirt
+    - { role: libvirt, libvirt_vm_state: delete }
