@@ -7,8 +7,8 @@
   register: __libvirt_current_vms
 
 - include: vm-create.yml
-  when: "'{{ libvirt_vm_state }}' == 'create' }}"
+  when: "'{{ libvirt_vm_state }}' == 'create'"
 
 - include: vm-delete.yml
-  when: "'{{ libvirt_vm_state }}' == 'delete' }}"
+  when: "'{{ libvirt_vm_state }}' == 'delete'"
 
