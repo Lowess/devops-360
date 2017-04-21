@@ -58,7 +58,7 @@
     create: yes
     path: /etc/dhcp/vm-ansible.conf
     insertafter: EOF
-    line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % item.0) }}; fixed-address {{ libvirt_ip_prefix ~ (item.0 + 1) }} ; }"
+    line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % item.0) }}; fixed-address {{ libvirt_ip_prefix ~ (item.0 + libvirt_ip_offset) }} ; }"
     owner: root
     group: root
     mode: '0644'
@@ -80,7 +80,7 @@
     server: "{{ libvirt_dns_server }}"
     type: A
     zone: "{{ libvirt_dns_zone }}"
-    value: "{{ libvirt_ip_prefix ~ (item.0 + 1) }}"
+    value: "{{ libvirt_ip_prefix ~ (item.0 + libvirt_ip_offset) }}"
     record: "{{ item.1.name }}"
     key_name: "{{ lookup('pipe', 'grep key ' ~ libvirt_dns_key).split(' ')[1] | replace('\"', '') }}"
     key_secret: "{{ lookup('pipe', \"grep secret \" ~ libvirt_dns_key ~ \" | tr -d ';' \").split(' ')[1] | replace('\"', '') }}"
