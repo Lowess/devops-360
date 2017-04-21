@@ -1,8 +1,7 @@
 ---
 
 libvirt_vms:
-  - 00.webservers
-  - 01.webservers
-  - 02.webservers
-  - 00.mysql
+  - name: 00.webserver
+  - name: 01.webserver
+  - name: 00.mysql
   # - 00.nginx
