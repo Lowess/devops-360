@@ -9,7 +9,7 @@ libvirt_vm_state: create
 libvirt_origin_guest: ubuntu0
 
 # MAC prefix used for newly created VMs
-libvirt_mac_prefix: '52:54:00:ff:'
+libvirt_mac_prefix: '52:54:00:ff:ee:'
 # Ip prefix used for newly created VMs
 libvirt_ip_prefix: '172.16.130.'
 
