@@ -75,7 +75,7 @@
     type: A
     zone: "{{ libvirt_dns_zone }}"
     value: "{{ libvirt_ip_prefix ~ (item.0 + 1) }}"
-    record: "{{ item.name }}"
+    record: "{{ item.1.name }}"
     key_name: >
       {{ lookup('pipe', "grep key " ~ libvirt_dns_key ~ " | awk '{ print $2 }' ") }}
     key_secret: >
