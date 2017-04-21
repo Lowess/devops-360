@@ -25,7 +25,7 @@
 # Clone only if the VM has not been already cloned
 - name: Clone the original VM into a new one
   command: >
-    virt-clone -o {{ libvirt_origin_guest }} -n {{ item.1.name }} -f /var/lib/libvirt/images/{{ item.1.name }}.qcow2 -m {{ libvirt_mac_prefix ~ ('%02x' % item.0) }}
+    virt-clone -o {{ libvirt_origin_guest }} -n {{ item.1.name }} -f /var/lib/libvirt/images/{{ item.1.name }}.qcow2 -m {{ libvirt_mac_prefix ~ ('%02x' % (item.0 + libvirt_mac_offset)) }}
   when: item.1.name not in __libvirt_current_vms.list_vms
   with_indexed_items: "{{ libvirt_vms }}"
 
@@ -58,7 +58,7 @@
     create: yes
     path: /etc/dhcp/vm-ansible.conf
     insertafter: EOF
-    line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % item.0) }}; fixed-address {{ libvirt_ip_prefix ~ (item.0 + libvirt_ip_offset) }} ; }"
+    line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % (item.0 + libvirt_mac_offset)) }}; fixed-address {{ libvirt_ip_prefix ~ (item.0 + libvirt_ip_offset) }} ; }"
     owner: root
     group: root
     mode: '0644'
