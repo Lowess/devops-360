@@ -1,6 +1,13 @@
 ---
 # tasks file for libvirt/vm-delete.yml
 
+- name: Check VMs status
+  virt:
+    command: status
+    name: "{{ libvirt_origin_guest }}"
+  register: __libvirt_vms_status
+  with_items: "{{ libvirt_vms }}"
+
 - name: Shutdown VMs
   virt:
     state: shutdown
