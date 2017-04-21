@@ -24,7 +24,7 @@
   virt:
     state: destroyed
     name: "{{ item.item.name }}"
-  when: item.status == 'shutdown'
+  when: item.status == 'running'
   with_items: "{{ __libvirt_vms_status.results }}"
 
 - name: Undefine VMs
