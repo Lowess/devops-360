@@ -1,6 +1,10 @@
 ---
 # tasks file for libvirt/vm-create.yml
 
+################################################################################
+### VM Creation
+################################################################################
+
 - name: Check the status of the original VM
   virt:
     command: status
@@ -17,19 +21,6 @@
     command: shutdown
     name: "{{ libvirt_origin_guest }}"
   when: __libvirt_original_vm_status.status != 'shutdown'
-
-- name: Add a DHCP entry for the VM
-  lineinfile:
-    state: present
-    create: yes
-    path: /etc/dhcp/vm-ansible.conf
-    insertafter: EOF
-    line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % item.0) }}; fixed-address {{ libvirt_ip_prefix ~ (item.0 + 1) }} ; }"
-    owner: root
-    group: root
-    mode: '0644'
-  when: item.1.name not in __libvirt_current_vms.list_vms
-  with_indexed_items: "{{ libvirt_vms }}"
 
 # Clone only if the VM has not been already cloned
 - name: Clone the original VM into a new one
@@ -56,3 +47,36 @@
     name: "{{ item.item.name }}"
   when: item.status != 'running'
   with_items: "{{ __libvirt_vms_status.results }}"
+
+################################################################################
+### DHCP Configuration
+################################################################################
+
+- name: Add a DHCP entry for the VM
+  lineinfile:
+    state: present
+    create: yes
+    path: /etc/dhcp/vm-ansible.conf
+    insertafter: EOF
+    line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % item.0) }}; fixed-address {{ libvirt_ip_prefix ~ (item.0 + 1) }} ; }"
+    owner: root
+    group: root
+    mode: '0644'
+  when: item.1.name not in __libvirt_current_vms.list_vms
+  with_indexed_items: "{{ libvirt_vms }}"
+
+################################################################################
+### DNS Configuration
+################################################################################
+
+- name: Configure DNSs for newly created VMs
+  nsupdate:
+    state: present
+    server: "{{ libvirt_dns_server }}"
+    type: A
+    zone: "{{ libvirt_dns_zone }}"
+    value: "{{ libvirt_ip_prefix ~ (item.0 + 1) }}"
+    record: "{{ item.name }}"
+    key_name: "{{ lookup('pipe', "grep key " ~ libvirt_dns_key ~ "| awk '{ print $2 }' ") }}"
+    key_secret: "{{ lookup('pipe', "grep secret " ~ libvirt_dns_key ~ "| awk '{ print $2 }' | tr -d ';' ") }}"
+  with_indexed_items: "{{ libvirt_vms }}"
