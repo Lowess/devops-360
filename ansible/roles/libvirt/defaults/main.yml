@@ -3,6 +3,7 @@
 
 libvirt_origin_guest: ubuntu0
 
+libvirt_mac_prefix: '52:54:00:ff:'
 libvirt_ip_prefix: '172.16.130.'
 
 libvirt_vms:
