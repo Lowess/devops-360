@@ -6,3 +6,8 @@
 ---
 
 # TODO
+- name: Configure webservers
+  hosts: webservers
+  become: yes
+
+  roles: []
