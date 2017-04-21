@@ -12,7 +12,7 @@ libvirt_origin_guest: ubuntu0
 libvirt_mac_prefix: '52:54:00:ff:ee:'
 # Ip prefix used for newly created VMs
 libvirt_ip_prefix: '172.16.110.'
-libvirt_ip_offset: 100
+libvirt_ip_offset: 5
 
 libvirt_dns_server: 172.16.110.254
 libvirt_dns_key: /etc/rndc.key
