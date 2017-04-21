@@ -7,3 +7,4 @@ libvirt_ip_prefix: '172.16.130.'
 
 libvirt_vms:
   - name: ubuntu-test
+    state: present
