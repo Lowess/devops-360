@@ -21,7 +21,8 @@ libvirt_dns_key: /etc/rndc.key
 libvirt_dns_zone: dom110.u13.org
 
 # List of VMs on which the action chosen by `libvirt_vm_state` will be applied
-libvirt_vms:
-  - name: 00.webserver
-  - name: 01.webserver
-  - name: 00.mysql
+#
+# libvirt_vms:
+#   - name: test
+libvirt_vms: []
+

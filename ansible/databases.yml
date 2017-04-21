@@ -6,8 +6,6 @@
 ---
 
 # TODO
-
-# TODO
 - name: Configure databases
   hosts: databases
   become: yes
