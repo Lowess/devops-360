@@ -1,6 +1,6 @@
 ---
-
 # tasks file for libvirt/vm-create.yml
+
 - name: Check the status of the original VM
   virt:
     command: status
@@ -22,9 +22,12 @@
   lineinfile:
     state: present
     create: yes
-    path: /etc/dhcp/vm-ansible.conf
+    dest: /etc/dhcp/vm-ansible.conf
     insertafter: EOF
-    line: "host item.1.name { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % item.0) }}; fixed-address {{ libvirt_ip_prefix ~ item.0 }} ; }"
+    line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % item.0) }}; fixed-address {{ libvirt_ip_prefix ~ item.0 }} ; }"
+    owner: root
+    group: root
+    mode: '0644'
   when: item.1.name not in __libvirt_current_vms.list_vms
   with_indexed_items: "{{ libvirt_vms }}"
 
