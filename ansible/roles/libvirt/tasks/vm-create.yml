@@ -73,6 +73,7 @@
     state: present
     name: dnspython
 
+# In a real wold: Should be done with Ansible Vault
 - name: Configure DNSs for newly created VMs
   nsupdate:
     state: present
@@ -82,5 +83,5 @@
     value: "{{ libvirt_ip_prefix ~ (item.0 + 1) }}"
     record: "{{ item.1.name }}"
     key_name: "{{ lookup('pipe', 'grep key ' ~ libvirt_dns_key).split(' ')[1] | replace('\"', '') }}"
-    key_secret: "{{ lookup('pipe', \"grep  secret \" ~ libvirt_dns_key ~ \" | tr -d';' \").split(' ')[1] | replace('\"', '') }}"
+    key_secret: "{{ lookup('pipe', \"grep secret \" ~ libvirt_dns_key ~ \" | tr -d ';' \").split(' ')[1] | replace('\"', '') }}"
   with_indexed_items: "{{ libvirt_vms }}"
