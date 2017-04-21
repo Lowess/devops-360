@@ -10,10 +10,10 @@ libvirt_origin_guest: ubuntu0
 
 # MAC prefix used for newly created VMs
 libvirt_mac_prefix: '52:54:00:b9:d0:'
-libvirt_mac_offset: 5
+libvirt_mac_offset: 30
 # Ip prefix used for newly created VMs
 libvirt_ip_prefix: '172.16.110.'
-libvirt_ip_offset: 5
+libvirt_ip_offset: 30
 
 libvirt_dns_server: 172.16.110.254
 libvirt_dns_key: /etc/rndc.key
@@ -21,4 +21,4 @@ libvirt_dns_zone: dom110.u13.org
 
 # List of VMs on which the action chosen by `libvirt_vm_state` will be applied
 libvirt_vms:
-  - name: ubuntu5
+  - name: ubuntu-ansible
