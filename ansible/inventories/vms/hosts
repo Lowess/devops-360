@@ -1,8 +1,5 @@
-[all]
-*.dom110.u13.org
-
 [webservers]
-*.webserver.dom110.u13.org
+[00:01].webserver.dom110.u13.org
 
 [databases]
-*.mysql.dom110.u13.org
+00.mysql.dom110.u13.org
