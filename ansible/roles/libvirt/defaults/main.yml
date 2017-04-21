@@ -9,8 +9,9 @@ libvirt_vm_state: create
 libvirt_origin_guest: ubuntu0
 
 # MAC prefix used for newly created VMs
-libvirt_mac_prefix: '52:54:00:b9:d0:'
-libvirt_mac_offset: 30
+# libvirt_mac_prefix: '52:54:00:b9:d0:'
+libvirt_mac_prefix: '52:54:00:ee:ff:'
+libvirt_mac_offset: 0
 # Ip prefix used for newly created VMs
 libvirt_ip_prefix: '172.16.110.'
 libvirt_ip_offset: 30
@@ -21,4 +22,6 @@ libvirt_dns_zone: dom110.u13.org
 
 # List of VMs on which the action chosen by `libvirt_vm_state` will be applied
 libvirt_vms:
-  - name: ansible
+  - name: 00.webserver
+  - name: 01.webserver
+  - name: 00.mysql
