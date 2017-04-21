@@ -8,6 +8,11 @@
   register: __libvirt_vms_status
   with_items: "{{ libvirt_vms }}"
 
+- name: Show VMs status
+  debug:
+    msg: "VMs status: {{ __libvirt_vms_status }}"
+    verbosity: 2
+
 - name: Shutdown VMs
   virt:
     state: shutdown
