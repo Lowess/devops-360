@@ -64,7 +64,7 @@
 ################################################################################
 
 # In a real wold: Should be done with Ansible Vault
-- name: Configure DNSs for newly created VMs
+- name: Delete DNSs for old VMs
   nsupdate:
     state: absent
     server: "{{ libvirt_dns_server }}"
