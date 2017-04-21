@@ -7,5 +7,5 @@ DevOps 360° is an introduction to automation with Ansible. For more details abo
 ```
 sudo yum install python-pip git
 sudo pip install -U pip
-pip install ansible==2.2.2.0
+pip install ansible==2.3.0.0
 ```

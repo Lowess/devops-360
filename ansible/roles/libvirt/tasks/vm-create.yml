@@ -22,7 +22,7 @@
   lineinfile:
     state: present
     create: yes
-    dest: /etc/dhcp/vm-ansible.conf
+    path: /etc/dhcp/vm-ansible.conf
     insertafter: EOF
     line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % item.0) }}; fixed-address {{ libvirt_ip_prefix ~ item.0 }} ; }"
     owner: root
