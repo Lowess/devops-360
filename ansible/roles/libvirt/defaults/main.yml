@@ -1,11 +1,18 @@
 ---
 # defaults file for libvirt
 
+# By default will run the module to create VMs
+# Values can be one of: ['create', 'delete']
+libvirt_vm_state: create
+
+# Origin guest used to clone new VMs
 libvirt_origin_guest: ubuntu0
 
+# MAC prefix used for newly created VMs
 libvirt_mac_prefix: '52:54:00:ff:'
+# Ip prefix used for newly created VMs
 libvirt_ip_prefix: '172.16.130.'
 
+# List of VMs on which the action chosen by `libvirt_vm_state` will be applied
 libvirt_vms:
   - name: ubuntu-test
-    state: present
