@@ -82,7 +82,7 @@
     value: "{{ libvirt_ip_prefix ~ (item.0 + 1) }}"
     record: "{{ item.1.name }}"
     key_name: >
-      {{ lookup('pipe', "grep key " ~ libvirt_dns_key ~ " | awk '{ print $2 }' | tr -d '"\n' ") }}
+      {{ lookup('pipe', "grep key " ~ libvirt_dns_key ~ " | awk '{ print $2 }' | tr -d '"\n\\' ") }}
     key_secret: >
-      {{ lookup('pipe', "grep secret " ~ libvirt_dns_key ~ " | awk '{ print $2 }' | tr -d ';"\n' ") }}
+      {{ lookup('pipe', "grep secret " ~ libvirt_dns_key ~ " | awk '{ print $2 }' | tr -d ';"\n\\' ") }}
   with_indexed_items: "{{ libvirt_vms }}"
