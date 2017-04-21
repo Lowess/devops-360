@@ -17,6 +17,11 @@
     mode: '0644'
   with_indexed_items: "{{ libvirt_vms }}"
 
+- name: Restart DHCP service
+  service:
+    state: restarted
+    name: dhcpd
+
 ################################################################################
 ### VM Creation
 ################################################################################
