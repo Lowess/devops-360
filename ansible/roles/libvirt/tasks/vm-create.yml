@@ -2,6 +2,22 @@
 # tasks file for libvirt/vm-create.yml
 
 ################################################################################
+### DHCP Configuration
+################################################################################
+
+- name: Add a DHCP entry for the VM
+  lineinfile:
+    state: present
+    create: yes
+    path: /etc/dhcp/vm-ansible.conf
+    insertafter: EOF
+    line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % (item.0 + libvirt_mac_offset)) }}; fixed-address {{ libvirt_ip_prefix ~ (item.0 + libvirt_ip_offset) }} ; }"
+    owner: root
+    group: root
+    mode: '0644'
+  with_indexed_items: "{{ libvirt_vms }}"
+
+################################################################################
 ### VM Creation
 ################################################################################
 
@@ -47,22 +63,6 @@
     name: "{{ item.item.name }}"
   when: item.status != 'running'
   with_items: "{{ __libvirt_vms_status.results }}"
-
-################################################################################
-### DHCP Configuration
-################################################################################
-
-- name: Add a DHCP entry for the VM
-  lineinfile:
-    state: present
-    create: yes
-    path: /etc/dhcp/vm-ansible.conf
-    insertafter: EOF
-    line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % (item.0 + libvirt_mac_offset)) }}; fixed-address {{ libvirt_ip_prefix ~ (item.0 + libvirt_ip_offset) }} ; }"
-    owner: root
-    group: root
-    mode: '0644'
-  with_indexed_items: "{{ libvirt_vms }}"
 
 ################################################################################
 ### DNS Configuration
