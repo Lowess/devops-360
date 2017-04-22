@@ -4,4 +4,4 @@ libvirt_vms:
   - name: 00.webserver
   - name: 01.webserver
   - name: 00.mysql
-  # - 00.nginx
+  - name: 00.nginx
