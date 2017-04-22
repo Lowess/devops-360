@@ -1,6 +1,11 @@
 ---
 # tasks file for libvirt
 
+- name: Install nsupdate python pip dependency
+  pip:
+    state: present
+    name: dnspython
+
 - name: Gather the list of VM
   virt:
     command: list_vms

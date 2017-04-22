@@ -75,11 +75,6 @@
 ### DNS Configuration
 ################################################################################
 
-- name: Install nsupdate python pip dependency
-  pip:
-    state: present
-    name: dnspython
-
 # In a real wold: Should be done with Ansible Vault
 - name: Configure DNSs for newly created VMs
   nsupdate:
