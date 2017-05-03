@@ -49,7 +49,7 @@ ansible-playbook -i inventories/vms vm-delete.yml
 > Configure the databases.
  
 ```
-ansible-playbook -i inventories/vms vm-delete.yml
+ansible-playbook -i inventories/vms databases.yml
 ```
 
 ### 2.5 webservers.yml
@@ -57,5 +57,5 @@ ansible-playbook -i inventories/vms vm-delete.yml
 > Configure the webservers.
 
 ```
-ansible-playbook -i inventories/vms vm-delete.yml
+ansible-playbook -i inventories/vms webservers.yml
 ```
