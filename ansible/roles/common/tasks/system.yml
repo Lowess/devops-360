@@ -50,7 +50,7 @@
 - name: Change the local time
   copy:
     remote_src: yes
-    src: "/usr/share/zoneinfo/{{ commmon_timezone }}"
+    src: "/usr/share/zoneinfo/{{ common_timezone }}"
     dest: /etc/localtime
     mode: 0644
   register: __common_localtime
