@@ -1,0 +1,7 @@
+---
+# tasks file for common
+#
+
+- include: system.yml
+- include: apt.yml
+- include: user.yml

@@ -1,0 +1,18 @@
+---
+# users.yml tasks file for common
+
+- name: Create system groups
+  group:
+    name: "{{ item.key }}"
+    gid: "{{ item.value.gid }}"
+  with_dict: "{{ common_users }}"
+
+- name: Create system users
+  user:
+    name: "{{ item.key }}"
+    uid: "{{ item.value.uid }}"
+    group: "{{ item.value.group }}"
+    shell: "{{ item.value.shell }}"
+    comment: "{{ item.value.comment }}"
+  with_dict: "{{ common_users }}"
+

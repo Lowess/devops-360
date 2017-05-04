@@ -1,0 +1,49 @@
+---
+# defaults file for common
+#
+
+common_timezone: 'Europe/Paris'
+
+common_apt_packages:
+  # Common apt packages
+  - apt-show-versions
+  - apt-transport-https
+
+  - ntp
+  - mailutils
+  - dnsutils
+
+  # Basic tools
+  - git
+  - vim
+  - bash
+  - screen
+  - telnet
+
+  # Monitoring tools
+  - htop
+  - nload
+  - atop
+  - dstat
+
+common_users:
+  # `deploy` user owns the code (RW access on source code)
+  - deploy:
+      uid: 201
+      gid: 201
+      group: app
+      groups: deploy
+      shell: /bin/bash
+      comment: 'Deploy User'
+
+  # `app` user runs the code (RO access on source code)
+  - app:
+      uid: 202
+      gid: 202
+      group: app # Primary user group
+      groups: app # Additional groups
+      shell: /bin/bash
+      comment: 'App User'
+
+
+

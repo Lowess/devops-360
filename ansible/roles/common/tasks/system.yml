@@ -1,0 +1,66 @@
+---
+# system.yml tasks file for common
+#
+
+######################################################################
+### Files and Procs escalation
+######################################################################
+
+- name: Files and procs limits escalations (hard/soft) for root and all other users
+  lineinfile:
+    dest: /etc/security/limits.conf
+    line: "{{ item }}"
+    insertafter: '^#<domain>\s*<type>\s*<item>\s*<value>'
+  with_items:
+    # Files
+    - "root  hard  nofile  65535"
+    - "root  soft  nofile  65535"
+    - "*  hard  nofile  65535"
+    - "*  soft  nofile  65535"
+    # Procs
+    - "root  hard  nproc  65535"
+    - "root  soft  nproc  65535"
+    - "*  hard  nproc  65535"
+    - "*  soft  nproc  65535"
+
+- name: Uncomment pam_limits.so
+  replace:
+    dest: /etc/pam.d/su
+    regexp: '^# session    required   pam_limits.so'
+    replace: 'session    required   pam_limits.so'
+
+- name: Add pam_limits.so to common-session
+  lineinfile:
+    dest: /etc/pam.d/common-session
+    line: 'session required  pam_limits.so'
+    insertbefore: '^# end of pam-auth-update config$'
+
+######################################################################
+### Date Time configuration
+######################################################################
+
+- name: Configure the timezone
+  template:
+    src: timezone.j2
+    dest: /etc/timezone
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Change the local time
+  copy:
+    remote_src: yes
+    src: "/usr/share/zoneinfo/{{ commmon_timezone }}"
+    dest: /etc/localtime
+    mode: 0644
+  register: __common_localtime
+
+- name: Restart cron and rsyslog to activate the new timezone
+  service:
+    state: restarted
+    name: "{{ item }}"
+  with_items:
+    - cron
+    - rsyslog
+  when: __common_localtime | changed
+

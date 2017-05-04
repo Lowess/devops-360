@@ -10,4 +10,5 @@
   hosts: databases
   become: yes
 
-  roles: []
+  roles:
+    - common

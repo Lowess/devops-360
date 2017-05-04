@@ -93,9 +93,9 @@ ENV/
 *.sublime-project
 
 # Custom section
-ansible/roles/common
-ansible/roles/mysql
-ansible/roles/webapp
-ansible/roles/nginx
-ansible/roles/uwsgi
+#ansible/roles/common
+#ansible/roles/mysql
+#ansible/roles/webapp
+#ansible/roles/nginx
+#ansible/roles/uwsgi
 
