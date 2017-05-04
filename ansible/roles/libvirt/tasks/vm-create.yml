@@ -98,5 +98,5 @@
     state: started
     host: "{{ item.1.name }}.{{ libvirt_dns_zone }}"
     port: 22
-    delay: 10
+    delay: 0
   with_indexed_items: "{{ libvirt_vms }}"
