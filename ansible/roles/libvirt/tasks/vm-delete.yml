@@ -15,14 +15,14 @@
 
 - name: Shutdown VMs
   virt:
-    state: shutdown
+    command: shutdown
     name: "{{ item.item.name }}"
   when: item.status == 'running'
   with_items: "{{ __libvirt_vms_status.results }}"
 
 - name: Destroy VMs
   virt:
-    state: destroyed
+    command: destroy
     name: "{{ item.item.name }}"
   when: item.status == 'running'
   with_items: "{{ __libvirt_vms_status.results }}"
