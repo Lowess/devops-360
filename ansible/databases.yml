@@ -11,5 +11,8 @@
   become: yes
 
   roles:
-    - common
-    - mysql
+    - role: common
+      tags: ['common']
+
+    - role: mysql
+      tags: ['mysql']
