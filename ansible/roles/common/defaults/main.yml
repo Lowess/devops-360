@@ -28,22 +28,22 @@ common_apt_packages:
 
 common_users:
   # `deploy` user owns the code (RW access on source code)
-  - deploy:
-      uid: 201
-      gid: 201
-      group: app
-      groups: deploy
-      shell: /bin/bash
-      comment: 'Deploy User'
+  deploy:
+    uid: 201
+    gid: 201
+    group: app
+    groups: deploy
+    shell: /bin/bash
+    comment: 'Deploy User'
 
   # `app` user runs the code (RO access on source code)
-  - app:
-      uid: 202
-      gid: 202
-      group: app # Primary user group
-      groups: app # Additional groups
-      shell: /bin/bash
-      comment: 'App User'
+  app:
+    uid: 202
+    gid: 202
+    group: app # Primary user group
+    groups: app # Additional groups
+    shell: /bin/bash
+    comment: 'App User'
 
 
 
