@@ -92,3 +92,11 @@
     key_name: "{{ lookup('pipe', 'grep key ' ~ libvirt_dns_key).split(' ')[1] | replace('\"', '') }}"
     key_secret: "{{ lookup('pipe', \"grep secret \" ~ libvirt_dns_key ~ \" | tr -d ';' \").split(' ')[1] | replace('\"', '') }}"
   with_indexed_items: "{{ libvirt_vms }}"
+
+- name: Wait for VMs to be reachable on SSH through their DNS
+  wait_for:
+    state: started
+    host: "{{ item.1.name }}{{ libvirt_dns_zone }}"
+    port: 22
+    delay: 10
+  with_indexed_items: "{{ libvirt_vms }}"

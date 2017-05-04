@@ -11,4 +11,3 @@
 
 - include: vm-delete.yml
   when: libvirt_vm_state == 'delete'
-
