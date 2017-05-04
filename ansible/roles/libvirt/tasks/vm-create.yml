@@ -2,7 +2,7 @@
 # tasks file for libvirt/vm-create.yml
 
 ################################################################################
-### VM Creation
+### VM Template should be shutdown
 ################################################################################
 
 - name: Check the status of the original VM
@@ -22,11 +22,16 @@
     name: "{{ libvirt_origin_guest }}"
   when: __libvirt_original_vm_status.status != 'shutdown'
 
+
+################################################################################
+### VM Template should be shutdown
+################################################################################
 # Clone only if the VM has not been already cloned
 - name: Clone the original VM into a new one
   command: >
     virt-clone -o {{ libvirt_origin_guest }} -n {{ item.1.name }} -f /var/lib/libvirt/images/{{ item.1.name }}.qcow2 -m {{ libvirt_mac_prefix ~ ('%02x' % (item.0 + libvirt_mac_offset)) }}
-  when: item.1.name not in __libvirt_current_vms.list_vms
+  args:
+    creates: /var/lib/libvirt/images/{{ item.1.name }}.qcow2
   with_indexed_items: "{{ libvirt_vms }}"
 
 - name: Check the status of each new VMs
