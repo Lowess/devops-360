@@ -22,7 +22,6 @@
     name: "{{ libvirt_origin_guest }}"
   when: __libvirt_original_vm_status.status != 'shutdown'
 
-
 ################################################################################
 ### VM Template should be shutdown
 ################################################################################

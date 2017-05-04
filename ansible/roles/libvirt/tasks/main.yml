@@ -6,11 +6,6 @@
     state: present
     name: dnspython
 
-- name: Gather the list of VM
-  virt:
-    command: list_vms
-  register: __libvirt_current_vms
-
 - include: vm-create.yml
   when: libvirt_vm_state == 'create'
 
