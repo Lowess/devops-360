@@ -4,7 +4,7 @@
 - name: Check VMs status
   virt:
     command: status
-    name: "{{ libvirt_origin_guest }}"
+    name: "{{ item.name }}"
   register: __libvirt_vms_status
   with_items: "{{ libvirt_vms }}"
 
