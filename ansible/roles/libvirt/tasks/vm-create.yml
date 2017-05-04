@@ -31,7 +31,7 @@
   command: >
     virt-clone -o {{ libvirt_origin_guest }} -n {{ item.1.name }} -f /var/lib/libvirt/images/{{ item.1.name }}.qcow2 -m {{ libvirt_mac_prefix ~ ('%02x' % (item.0 + libvirt_mac_offset)) }}
   args:
-    creates: "{{ /var/lib/libvirt/images/{{ item.1.name }}.qcow2 }}"
+    creates: "/var/lib/libvirt/images/{{ item.1.name }}.qcow2"
   with_indexed_items: "{{ libvirt_vms }}"
 
 - name: Check the status of each new VMs
