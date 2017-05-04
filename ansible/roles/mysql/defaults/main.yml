@@ -1,2 +1,4 @@
 ---
 # defaults file for mysql
+
+mysql_server_root_pwd: 'changeme'

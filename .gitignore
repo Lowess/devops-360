@@ -98,4 +98,4 @@ ENV/
 #ansible/roles/webapp
 #ansible/roles/nginx
 #ansible/roles/uwsgi
-
+ansible/vault-secret

@@ -1,0 +1,36 @@
+---
+# tasks file for mysql
+
+######################################################################
+### Secure Mysql
+######################################################################
+# Secure MySql root account (http://docs.ansible.com/mysql_user_module.html)
+
+- name: Set a password for the MySql root user
+  mysql_user:
+    state: present
+    name: root
+    password: "{{ mysql_server_root_pwd }}"
+
+- name: Drop the ~/.my.cnf
+  template:
+    src: .my.cnf.j2
+    dest: /root/.my.cnf
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: Get the hostname registered in MySql
+  shell: hostname
+  register: hostname
+  changed_when: False
+
+# Drop anonymous users
+- name: Drop anonymous users
+  mysql_user:
+    state: absent
+    name: ''
+    host: "{{ item }}"
+  with_items:
+    - localhost
+    - hostname.stdout

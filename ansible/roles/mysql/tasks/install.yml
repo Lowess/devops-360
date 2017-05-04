@@ -1,0 +1,23 @@
+---
+# install.yml tasks file for mysql
+
+######################################################################
+### Install Mysql
+######################################################################
+
+- name: Setup Mysql database and utilities
+  apt:
+    state: present
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - mysql-server
+    - libdbd-mysql
+    - mysql-client
+    - python-mysqldb # Required by the Ansible
+
+- name: Make sure Mysql is started and enabled at boot time
+  service:
+    name: mysql
+    state: started
+    enabled: yes
