@@ -11,7 +11,7 @@
     path: "{{ webapp_root }}"
     owner: deploy
     group: deploy
-    mode: 0644
+    mode: 0755
 
 - name: Deploy the webapp repository from GitHub
   git:
