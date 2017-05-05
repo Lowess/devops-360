@@ -4,4 +4,4 @@
 from app.config.config import Config
 
 class ProductionConfig(Config):
-    {{ webapp_prod_py }}
+{{ webapp_prod_py | indent(4) }}
