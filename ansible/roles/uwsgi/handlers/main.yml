@@ -1,2 +1,20 @@
 ---
 # handlers file for uwsgi
+
+- name: Start Uwsgi-Emperor
+  service:
+    state: started
+    name: emperor
+    pattern: 'uwsgi --emperor'
+
+- name: Stop Uwsgi-Emperor
+  service:
+    state: stopped
+    name: emperor
+    pattern: 'uwsgi --emperor'
+
+- name: Restart Uwsgi-Emperor
+  service:
+    state: restarted
+    name: emperor
+    pattern: 'uwsgi --emperor'
