@@ -6,4 +6,3 @@
   apt:
     state: absent
     name: apache2
-    state: stopped
