@@ -7,6 +7,7 @@ webapp_setup_enabled: yes
 
 webapp_apt_packages:
   - libmysqlclient-dev
+  - mysql-client
 
 # Git settings for the webapp
 webapp_git_repository: https://github.com/Lowess/devops-360-webapp.git

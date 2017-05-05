@@ -16,8 +16,18 @@
     - mysql-client
     - python-mysqldb # Required by the Ansible
 
+- name: Make sure Mysql binds to all interfaces
+  lineinfile:
+    path: /etc/mysql/my.cnf
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+    owner: root
+    group: root
+    mode: 0644
+  register: __mysql_configuration
+
 - name: Make sure Mysql is started and enabled at boot time
   service:
     name: mysql
-    state: started
+    state: "{{ (__mysql_configuration | changed) | ternary('restarted', 'started') }}"
     enabled: yes

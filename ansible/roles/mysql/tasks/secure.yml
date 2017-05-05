@@ -20,17 +20,9 @@
     group: root
     mode: '0600'
 
-- name: Get the hostname registered in MySql
-  shell: hostname
-  register: hostname
-  changed_when: False
-
 # Drop anonymous users
-- name: Drop anonymous users
+- name: Drop all anonymous user accounts
   mysql_user:
     state: absent
     name: ''
-    host: "{{ item }}"
-  with_items:
-    - localhost
-    - hostname.stdout
+    host_all: yes

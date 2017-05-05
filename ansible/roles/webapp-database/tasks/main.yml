@@ -27,6 +27,7 @@
     name: "{{ webapp_database_user }}"
     password: "{{ webapp_database_pwd }}"
     priv: "{{ webapp_database_db }}.*:ALL"
+    host: '%'
 
 - name: Populate the database from SQL dump if newly created
   mysql_db:
