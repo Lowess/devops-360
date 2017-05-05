@@ -22,5 +22,5 @@
     path: /etc/uwsgi/apps-enabled/uwsgi-webapp.ini
     owner: root
     group: root
-   notify:
+  notify:
     - Restart Uwsgi-Emperor
