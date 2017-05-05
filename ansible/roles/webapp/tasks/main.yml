@@ -7,4 +7,4 @@
     - include: install.yml
     - include: uwsgi-configuration.yml
     - include: nginx-configuration.yml
-  when: not webapp_setup_enabled
+  when: webapp_setup_enabled
