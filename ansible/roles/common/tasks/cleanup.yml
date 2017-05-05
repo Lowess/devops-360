@@ -1,0 +1,9 @@
+---
+# cleanup.yml tasks file for common
+#
+
+- name: Uninstall apache2 server
+  apt:
+    state: absent
+    name: apache2
+    state: stopped
