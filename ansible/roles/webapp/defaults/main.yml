@@ -27,7 +27,7 @@ webapp_mysql_db: 'beerbattle'
 webapp_mysql_user: ''
 webapp_mysql_pwd: ''
 
-webapp_prod_py: >
+webapp_prod_py: |
    ### Mysql config
    MYSQL_SERVER = '{{ webapp_mysql_server }}'
    MYSQL_DB = '{{ webapp_mysql_db }}'
