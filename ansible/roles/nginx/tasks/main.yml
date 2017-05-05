@@ -1,2 +1,21 @@
 ---
 # tasks file for nginx
+
+- name: Install Nginx
+  apt:
+    name: nginx
+
+- name: Removing Nginx default configuration from sites-*
+  file:
+    state: absent
+    path: "/etc/nginx/{{ item }}/default"
+  with_items:
+    - sites-enabled
+    - sites-available
+
+# Block Vulerability: https://httpoxy.org/
+- name: Block the HTTP_PROXY header from being passed to PHP or CGI
+  lineinfile:
+    dest: /etc/nginx/fastcgi_params
+    line: 'fastcgi_param HTTP_PROXY "";'
+    insertafter: EOF

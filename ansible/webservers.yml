@@ -10,4 +10,10 @@
   hosts: webservers
   become: yes
 
-  roles: []
+  roles:
+    - role: nginx
+      tags: ['nginx']
+
+    - role: uwsgi
+      tags: ['uwsgi']
+

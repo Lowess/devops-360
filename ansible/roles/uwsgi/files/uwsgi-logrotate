@@ -1,0 +1,8 @@
+/var/log/uwsgi/*.log {
+  copytruncate
+  size 100M
+  rotate 7
+  compress
+  missingok
+  create 640 root root
+}

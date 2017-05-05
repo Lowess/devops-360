@@ -1,2 +1,52 @@
 ---
 # tasks file for uwsgi
+
+- name: Install Uwsgi dependencies
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - python-dev
+    - python-apt
+    - build-essential
+    - python-pip
+
+- name: Install virtualenv and uwsgi using pip
+  pip:
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - virtualenv
+    - uwsgi
+    - uwsgitop
+
+- name: Create the Uwsgi folders
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - /etc/uwsgi
+    - /etc/uwsgi/apps-available
+    - /etc/uwsgi/apps-enabled
+    - /var/log/uwsgi
+
+- name: Deploy emperor startup script
+  copy:
+    src: emperor-initd
+    dest: /etc/init.d/emperor
+    mode: '0755'
+
+- name: Enable and start emperor service
+  service:
+    state: started
+    name: emperor
+    enabled: yes
+    pattern: 'uwsgi --emperor'
+
+- name: Setup log rotation on Uwsgi log folder
+  copy:
+    src: uwsgi-logrotate
+    dest: /etc/logrotate.d/uwsgi
+    mode: '0644'
