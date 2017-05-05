@@ -1,0 +1,10 @@
+---
+# defaults file for webapp-database
+#
+
+webapp_database_user: 'beerbattle'
+webapp_database_pwd: 'changeme'
+webapp_database_db: 'beerbattle'
+
+# Folder in which we will store schemas that have been previously imported
+webapp_datatabase_migration_folder: /opt/webapp-database

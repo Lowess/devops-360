@@ -21,3 +21,6 @@
       webapp_setup_enabled: no
       tags: ['webapp']
 
+    - role: webapp-database
+      tags: ['webapp-database']
+

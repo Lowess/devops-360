@@ -1,0 +1,36 @@
+---
+# tasks file for webapp-database
+
+- name: Create the Webapp database
+  mysql_db:
+    state: present
+    name: "{{ webapp_database_db }}"
+  register: __webapp_database_created
+
+- name: Grab the list of schemas that need to be imported
+  find:
+    path: "{{ webapp_root }}/database/schemas"
+    patterns: '*.sql'
+    recurse: yes
+  register: __webapp_database_schemas
+
+- name: Import schemas into the database
+  mysql_db:
+    state: import
+    name: "{{ webapp_database_db }}"
+    target: "{{ item.path }}"
+  with_items: "{{ __webapp_database_schemas.files }}"
+
+- name: Grant rights to the Webapp database user on its database
+  mysql_user:
+    state: present
+    name: "{{ webapp_database_user }}"
+    password: "{{ webapp_database_pwd }}"
+    priv: "{{ webapp_database_db }}.*:ALL"
+
+- name: Populate the database from SQL dump if newly created
+  mysql_db:
+    state: import
+    name: "{{ webapp_database_db }}"
+    target: "{{ webapp_root }}/database/data/beerbattle.sql"
+  when: __webapp_database_created | changed
