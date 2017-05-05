@@ -7,21 +7,19 @@
 ### TWS Configuration
 ################################################################################
 
-upstream {{ tws_app_name }} {
-{% for socket in tws_app_sockets %}
-    server {{ socket }};
-{% endfor %}
+upstream devops-360-webapp {
+    server 127.0.0.1:8080;
 }
 
 server {
-    listen *:{{ tws_app_ports.nginx }};
+    listen *:80;
     server_name _;
 
-    access_log /var/log/nginx/{{ tws_app_name }}-access.log;
-    error_log /var/log/nginx/{{ tws_app_name }}-error.log;
+    access_log /var/log/nginx/devops-360-webapp-access.log;
+    error_log /var/log/nginx/devops-360-webapp-error.log;
 
     location / {
-        uwsgi_pass {{ tws_app_name }};
+        uwsgi_pass devops-360-webapp;
         include uwsgi_params;
     }
 }
