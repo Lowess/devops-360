@@ -1,0 +1,23 @@
+---
+# nginx-configuration.yml tasks file for webapp
+
+################################################################################
+### Deploy the Nginx configuration
+################################################################################
+
+- name: Deploy the webapp Nginx configuration
+  template:
+    src: nginx-webapp.j2
+    dest: /etc/nginx/sites-available/webapp
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Symlink the webapp Nginx configuration
+  file:
+    state: link
+    src: /etc/nginx/sites-available/webapp
+    path: /etc/nginx/sites-enabled/webapp
+    owner: root
+    group: root
+

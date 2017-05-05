@@ -16,3 +16,8 @@
 
     - role: mysql
       tags: ['mysql']
+
+    - role: webapp
+      webapp_setup_enabled: no
+      tags: ['webapp']
+

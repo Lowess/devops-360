@@ -1,0 +1,22 @@
+---
+# git.yml tasks file for webapp
+
+################################################################################
+### Repository deployment
+################################################################################
+
+- name: Make the webapp root folder
+  file:
+    state: directory
+    path: "{{ webapp_root }}"
+    owner: deploy
+    group: deploy
+    mode: 0644
+
+- name: Deploy the webapp repository from GitHub
+  git:
+    repo: "{{ webapp_git_repository }}"
+    dest: "{{ webapp_root }}"
+    version: "{{ webapp_git_version }}"
+  become_user: deploy
+

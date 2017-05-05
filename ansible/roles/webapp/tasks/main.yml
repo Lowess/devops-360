@@ -1,2 +1,10 @@
 ---
 # tasks file for webapp
+
+- include: git.yml
+
+- block:
+    - include: install.yml
+    - include: uwsgi-configuration.yml
+    - include: nginx-configuration.yml
+  when: not webapp_setup_enabled

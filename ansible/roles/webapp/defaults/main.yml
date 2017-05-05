@@ -1,2 +1,36 @@
 ---
 # defaults file for webapp
+
+# Do the full installation and configuration of the webapp.
+# If set to `no`, it will only deploy the git repository
+webapp_setup_enabled: yes
+
+# Git settings for the webapp
+webapp_git_repository: https://github.com/Lowess/devops-360-webapp.git
+webapp_git_version: v1.0.0
+
+# Webapp settings
+webapp_root: /opt/devops-360-webapp
+webapp_user: app
+webapp_group: app
+
+# Env variables that should be passed to the webapp
+webapp_env:
+  - FLASK_ENV=prod
+
+# Settings used to configure app/config/prod.py
+webapp_mysql_server: ''
+webapp_mysql_db: 'beerbattle'
+webapp_mysql_user: ''
+webapp_mysql_pwd: ''
+
+webapp_prod_py: |
+   ### Mysql config
+   MYSQL_SERVER = '{{ webapp_mysql_server }}'
+   MYSQL_DB = '{{ webapp_mysql_db }}'
+   MYSQL_USER = '{{ webapp_mysql_user }}'
+   MYSQL_PWD = '{{ webapp_mysql_pwd }}'
+
+   ### Webapp custom settings
+   # Restrict battles to a specific ID interval [min_id, max_id]
+   #BEER_BATTLE_ID_INTERVAL = (1,100)

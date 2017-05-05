@@ -1,0 +1,22 @@
+---
+# uwsgi-configuration.yml tasks file for webapp
+
+################################################################################
+### Deploy the Uwsgi configuration
+################################################################################
+
+- name: Deploy the webapp Uwsgi configuration
+  template:
+    src: uwsgi-webapp.ini.j2
+    dest: /etc/uwsgi/apps-available/uwsgi-webapp.ini
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Symlink the webapp Uwsgi configuration
+  file:
+    state: link
+    src: /etc/uwsgi/apps-available/uwsgi-webapp.ini
+    path: /etc/uwsgi/apps-enabled/uwsgi-webapp.ini
+    owner: root
+    group: root

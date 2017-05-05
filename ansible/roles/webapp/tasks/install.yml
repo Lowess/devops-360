@@ -1,0 +1,27 @@
+---
+# install.yml tasks file for webapp
+
+################################################################################
+### Repository dependencies installation and prod configuration
+################################################################################
+
+- name: Install repository requirements in virtualenv
+  pip:
+    requirements: "{{ webapp_root }}/requirements.txt"
+    virtualenv: "{{ webapp_root }}/.env-{{ webapp_git_version }}"
+
+- name: Symlink the virtualenv
+  file:
+    state: link
+    src: "{{ webapp_root }}/.env-{{ webapp_git_version }}"
+    path: "{{ webapp_root }}/.env"
+    owner: root
+    group: root
+
+- name: Deploy the prod.py configuration file
+  template:
+    src: prod.py.j2
+    dest: "{{ webapp_root }}/app/config/prod.py"
+    owner: deploy
+    group: deploy
+    mode: 0644
