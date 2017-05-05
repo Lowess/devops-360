@@ -22,12 +22,12 @@ webapp_env:
   - FLASK_ENV=prod
 
 # Settings used to configure app/config/prod.py
-webapp_mysql_server: "{{ (hostvars[group['databases'][0]]).ansible_eth0.ipv4.address }}"
+webapp_mysql_server: "{{ (hostvars[group['databases'][0]].ansible_eth0.ipv4.address }}"
 webapp_mysql_db: 'beerbattle'
 webapp_mysql_user: ''
 webapp_mysql_pwd: ''
 
-webapp_prod_py: |
+webapp_prod_py: >
    ### Mysql config
    MYSQL_SERVER = '{{ webapp_mysql_server }}'
    MYSQL_DB = '{{ webapp_mysql_db }}'
