@@ -5,6 +5,12 @@
 ### Repository dependencies installation and prod configuration
 ################################################################################
 
+- name: Install apt package requirements
+  apt:
+    state: present
+    name: "{{ item }}"
+  with_items: webapp_apt_packages
+
 - name: Install repository requirements in virtualenv
   pip:
     requirements: "{{ webapp_root }}/requirements.txt"
