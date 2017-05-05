@@ -12,6 +12,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+    - Restart Nginx
 
 - name: Symlink the webapp Nginx configuration
   file:
@@ -20,4 +22,5 @@
     path: /etc/nginx/sites-enabled/webapp
     owner: root
     group: root
-
+  notify:
+    - Restart Nginx

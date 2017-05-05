@@ -16,6 +16,8 @@ gid = {{ webapp_group }}
 
 module = app
 callable = app
+
+chdir = %(base)
 virtualenv = %(base)/.env
 
 {% for env in webapp_env %}

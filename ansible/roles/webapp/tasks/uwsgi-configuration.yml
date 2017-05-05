@@ -12,6 +12,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+    - Restart Uwsgi-Emperor
 
 - name: Symlink the webapp Uwsgi configuration
   file:
@@ -20,3 +22,5 @@
     path: /etc/uwsgi/apps-enabled/uwsgi-webapp.ini
     owner: root
     group: root
+   notify:
+    - Restart Uwsgi-Emperor
