@@ -19,3 +19,4 @@
     dest: "{{ webapp_root }}"
     version: "{{ webapp_git_version }}"
   become_user: deploy
+  register: __webapp_git_deployment
