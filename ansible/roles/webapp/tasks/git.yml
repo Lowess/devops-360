@@ -18,5 +18,4 @@
     repo: "{{ webapp_git_repository }}"
     dest: "{{ webapp_root }}"
     version: "{{ webapp_git_version }}"
-    force: yes
   become_user: deploy
