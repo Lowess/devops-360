@@ -24,3 +24,9 @@
     group: root
   notify:
     - Restart Uwsgi-Emperor
+
+- name: Trigger the touch reload when WebApp version changed
+  file:
+    state: touch
+    path: /var/run/uwsgi-webapp.pid
+  when: __webapp_git_deployment | changed
