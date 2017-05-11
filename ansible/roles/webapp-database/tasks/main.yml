@@ -19,7 +19,13 @@
     state: import
     name: "{{ webapp_database_db }}"
     target: "{{ item.path }}"
+  register: __webapp_database_schema_import
   with_items: "{{ __webapp_database_schemas.files }}"
+
+- name: Show import result
+  debug:
+      msg: "{{ __webapp_database_schema_import }}"
+      verbosity: 2
 
 - name: Grant rights to the Webapp database user on its database
   mysql_user:
