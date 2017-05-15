@@ -9,6 +9,9 @@
     dest: "{{ libvirt_images_folder }}/{{ item.key }}{{ (libvirt_base_image | splitext)[1] }}"
     remote_src: yes
     force: no
+    owner: qemu
+    group: qemu
+    mode: '0644'
   with_dict: "{{ libvirt_vms }}"
 
 - name: Define VMs

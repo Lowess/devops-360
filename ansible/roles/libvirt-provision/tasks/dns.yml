@@ -9,7 +9,7 @@
     state: present
     create: yes
     path: /etc/dhcp/dhcpd.conf
-    insertafter: '      include "/etc/dhcp/vm-ubuntu.conf";'
+    insertafter: 'include "/etc/dhcp/vm-ubuntu.conf";'
     line: '      include "/etc/dhcp/vm-ansible.conf";'
     owner: root
     group: root
