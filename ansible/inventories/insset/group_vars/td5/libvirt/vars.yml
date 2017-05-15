@@ -1,0 +1,8 @@
+---
+
+libvirt_ip_prefix: '172.16.115.'
+libvirt_ip_offset: 30
+
+libvirt_dns_server: 172.16.115.254
+libvirt_dns_key: /etc/clefupdate.key
+libvirt_dns_zone: dom115.u13.org
