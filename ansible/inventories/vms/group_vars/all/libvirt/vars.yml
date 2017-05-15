@@ -1,7 +1,19 @@
 ---
 
 libvirt_vms:
-  - name: 00.webserver
-  - name: 01.webserver
-  - name: 00.mysql
-  - name: 00.nginx
+  00.nginx:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.50"
+  00.webserver:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.60"
+  01.webserver:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.61"
+  00.mysql:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.70"
