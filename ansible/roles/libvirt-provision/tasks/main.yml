@@ -1,8 +1,6 @@
 ---
 # tasks file for libvirt-provision
 
----
-
 - name: Copy the base image disk
   copy:
     src: "{{ libvirt_images_folder }}/{{ libvirt_base_image }}"
