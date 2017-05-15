@@ -99,3 +99,4 @@ ENV/
 #ansible/roles/nginx
 #ansible/roles/uwsgi
 ansible/vault-secret
+ansible/roles/libvirt-old

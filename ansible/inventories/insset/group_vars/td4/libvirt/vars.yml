@@ -11,4 +11,4 @@ libvirt_dns_zone: dom114.u13.org
 # Ip prefix used for newly created VMs
 libvirt_ip_prefix: '172.16.114'
 
-libvirt_user: root
+libvirt_user: oneadmin
