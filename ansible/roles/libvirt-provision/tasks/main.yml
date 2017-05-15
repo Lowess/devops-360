@@ -4,7 +4,7 @@
 - name: Copy the base image disk
   copy:
     src: "{{ libvirt_images_folder }}/{{ libvirt_base_image }}"
-    dest: "{{ libvirt_images_folder }}/{{ item.1.name }}{{ libvirt_base_image | splitext[1] }}"
+    dest: "{{ libvirt_images_folder }}/{{ item.1.name }}{{ (libvirt_base_image | splitext)[1] }}"
   with_indexed_items: "{{ libvirt_vms }}"
 
 - name: Define VMs
