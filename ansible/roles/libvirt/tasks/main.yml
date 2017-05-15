@@ -14,9 +14,14 @@
 #
 - name: Calculate MAC addresses for VMs
   set_fact:
-    __libvirt_vm_macs: >
+    __libvirt_vm_mac: >
       { "{{ item.key }}": { "mac": "{{ libvirt_mac_prefix }}:{% for mac_part in (item.key | hash('sha1'))[-6:] | slice(3) %}{{ mac_part | join('') }}{{ '' if loop.last else ':' }}{% endfor %}" } }
   with_dict: "{{ libvirt_vms }}"
+  register: __libvirt_vm_macs
+
+- name: Show macs
+  debug:
+    msg: "{{ __libvirt_vm_macs.results | map(attribute='ansible_facts.__libvirt_vm_mac') }}"
 
 - name: Associate MAC address with VMs
   set_fact:
