@@ -19,7 +19,7 @@ libvirt_dns_key: /etc/rndc.key
 libvirt_dns_zone: dom110.u13.org
 
 libvirt_vms:
-  - name: ubuntu-test
+  ubuntu-test:
     cpu: 1
     mem: 768
     ip: "{{ libvirt_ip_prefix }}.50"
