@@ -49,7 +49,7 @@
     zone: "{{ libvirt_dns_zone }}"
     value: "{{ item.value.ip }}"
     record: "{{ item.key }}"
-    key_name: "{{ (__libvirt_dns_key_name.stdout).split(' ')[1] | replace('\"', '') }}"
+    key_name: "{{ (__libvirt_dns_key_name.stdout).split(' ')[1] | replace('\"', '') | replace('{', '') }}"
     key_secret: "{{ (__libvirt_dns_key_secret.stdout).split(' ')[1] | replace('\"', '') }}"
   with_dict: "{{ libvirt_vms }}"
 
