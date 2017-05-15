@@ -16,11 +16,11 @@
 
 - name: Add MAC addresses to VMs list
   set_fact:
-    libvirt_vms: "{{ libvirt_vms | combine(__libvirt_vm_macs) }}"
+    __libvirt_vms: "{{ libvirt_vms | combine(__libvirt_vm_macs) }}"
 
 - name: Show the list of VMs
   debug:
-    msg: "{{ libvirt_vms }}"
+    msg: "{{ __libvirt_vms }}"
     verbosity: 2
 
 ################################################################################
