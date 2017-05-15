@@ -5,7 +5,7 @@
 libvirt_mac_prefix: '52:54:00'
 
 libvirt_dns_server: 172.16.118.254
-libvirt_dns_key: /etc/clefupdate.key
+libvirt_dns_key: /etc/cleupdate.key
 libvirt_dns_zone: dom118.u13.org
 
 # Ip prefix used for newly created VMs
