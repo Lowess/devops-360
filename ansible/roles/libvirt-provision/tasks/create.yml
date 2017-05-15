@@ -11,7 +11,7 @@
     force: no
     owner: "{{ libvirt_user }}"
     group: "{{ libvirt_user }}"
-    mode: '0664'
+    mode: '0644'
   with_dict: "{{ libvirt_vms }}"
 
 - name: Define VMs
