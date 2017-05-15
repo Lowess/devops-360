@@ -1,14 +1,14 @@
-<domain type='{{ item..virt_type | default("kvm") }}'>
-    <name>{{ item..name }}</name>
-    <uuid>{{ item..name | to_uuid }}</uuid>
-    <title>{{ item..name }} Ansible managed VM</title>
+<domain type='{{ item.value.virt_type | default("kvm") }}'>
+    <name>{{ item.key }}</name>
+    <uuid>{{ item.key | to_uuid }}</uuid>
+    <title>{{ item.key }} Ansible managed VM</title>
     <description>VM managed by Ansible</description>
-    <memory unit='MB'>{{ item..mem | default(512) }}</memory>
-    <currentMemory unit='MB'>{{ item..mem | default(512) }}</currentMemory>
-    <vcpu placement='static'>{{ item..cpu | default(1) }}</vcpu>
+    <memory unit='MB'>{{ item.value.mem | default(512) }}</memory>
+    <currentMemory unit='MB'>{{ item.value.mem | default(512) }}</currentMemory>
+    <vcpu placement='static'>{{ item.value.cpu | default(1) }}</vcpu>
 
     <os>
-        <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>{{ item..virt_hypervisor | default('hvm') }}</type>
+        <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>{{ item.value.virt_hypervisor | default('hvm') }}</type>
         <boot dev='hd'/>
     </os>
 
@@ -36,7 +36,7 @@
 
         <disk type='file' device='disk'>
             <driver name='qemu' type='qcow2'/>
-            <source file='{{ libvirt_images_folder }}/{{ item..name }}{{ (libvirt_base_image | splitext)[1] }}'/>
+            <source file='{{ libvirt_images_folder }}/{{ item.key }}{{ (libvirt_base_image | splitext)[1] }}'/>
             <target dev='vda' bus='virtio'/>
             <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
         </disk>
