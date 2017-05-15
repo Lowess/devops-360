@@ -32,8 +32,7 @@
     src: "{{ libvirt_images_folder }}/{{ libvirt_base_image }}"
     dest: "{{ libvirt_images_folder }}/{{ item.key }}{{ (libvirt_base_image | splitext)[1] }}"
     remote_src: yes
-  args:
-    creates: "{{ libvirt_images_folder }}/{{ item.key }}{{ (libvirt_base_image | splitext)[1] }}"
+    force: no
   with_dict: "{{ libvirt_vms }}"
 
 - name: Define VMs
