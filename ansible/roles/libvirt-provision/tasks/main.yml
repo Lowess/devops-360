@@ -1,11 +1,13 @@
 ---
 # tasks file for libvirt-provision
 
-- name: Copy the base image disk
-  copy:
-    src: "{{ libvirt_images_folder }}/{{ libvirt_base_image }}"
-    dest: "{{ libvirt_images_folder }}/{{ item.1.name }}{{ (libvirt_base_image | splitext)[1] }}"
-  with_indexed_items: "{{ libvirt_vms }}"
+# - name: Copy the base image disk
+#   command: >
+#     virt-clone
+#     src: "{{ libvirt_images_folder }}/{{ libvirt_base_image }}"
+#     dest: "{{ libvirt_images_folder }}/{{ item.1.name }}{{ (libvirt_base_image | splitext)[1] }}"
+#     remote_src: yes
+#   with_indexed_items: "{{ libvirt_vms }}"
 
 - name: Define VMs
   virt:
