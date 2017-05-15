@@ -1,0 +1,22 @@
+---
+################################################################################
+### VM Definition and creation
+################################################################################
+
+- name: Destroy VMs
+  virt:
+    state: destroyed
+    name: "{{ item.key }}"
+  with_dict: "{{ libvirt_vms }}"
+
+- name: Undefine VMs
+  virt:
+    name: "{{ item.key }}"
+    command: undefine
+  with_dict: "{{ libvirt_vms }}"
+
+- name: Remove the image disk
+  file:
+    state: absent
+    path: "{{ libvirt_images_folder }}/{{ item.key }}{{ (libvirt_base_image | splitext)[1] }}"
+  with_dict: "{{ libvirt_vms }}"

@@ -2,6 +2,10 @@
 # defaults file for libvirt-provision
 #
 
+# By default will run the role to create VMs
+# Values can be one of: ['create', 'delete']
+libvirt_vm_state: create
+
 libvirt_images_folder: /var/lib/libvirt/images
 libvirt_base_image: Ubuntu-14.04-64-cons.qcow2
 
