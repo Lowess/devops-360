@@ -31,6 +31,11 @@
 ### Install dependencies
 ################################################################################
 
+- name: Install python-pip
+  package:
+    state: present
+    name: python-pip
+
 - name: Install nsupdate python pip dependency
   pip:
     state: present
