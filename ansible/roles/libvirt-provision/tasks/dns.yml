@@ -4,6 +4,18 @@
 ### DNS Configuration
 ################################################################################
 
+- name: Make sure dhcpd.conf includes vm-ansible.conf
+  lineinfile:
+    state: present
+    create: yes
+    path: /etc/dhcp/dhcpd.conf
+    insertafter: '      include "/etc/dhcp/vm-ubuntu.conf";'
+    line: '      include "/etc/dhcp/vm-ansible.conf";'
+    owner: root
+    group: root
+    mode: '0644'
+  register: __libvirt_dhcpd_include
+
 - name: Configure a DHCP entry for VMs
   lineinfile:
     state: "{{ (libvirt_vm_state == 'create') | ternary('present', 'absent') }}"
@@ -21,7 +33,9 @@
   service:
     state: restarted
     name: dhcpd
-  when: __libvirt_dhcp_entries_updated | changed
+  when:
+    - (__libvirt_dhcp_entries_updated | changed) or
+      (__libvirt_dhcpd_include | changed)
 
 ################################################################################
 ### DNS Configuration
