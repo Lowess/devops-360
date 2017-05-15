@@ -5,14 +5,9 @@
 libvirt_images_folder: /var/lib/libvirt/images
 libvirt_base_image: Ubuntu-14.04-64-cons.qcow2
 
-# Ip prefix used for newly created VMs
-libvirt_ip_prefix: '172.16.110'
-libvirt_ip_offset: 40
-
 # MAC prefix should only contain 6 digits, the other 6 digits will be dynamically
 # generated
 libvirt_mac_prefix: '52:54:00'
-libvirt_mac_offset: 10
 
 libvirt_dns_server: 172.16.110.254
 libvirt_dns_key: /etc/rndc.key
