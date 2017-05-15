@@ -1,8 +1,12 @@
 ---
 
-libvirt_ip_prefix: '172.16.113.'
-libvirt_ip_offset: 30
+# MAC prefix should only contain 6 digits, the other 6 digits will be dynamically
+# generated
+libvirt_mac_prefix: '52:54:00'
 
 libvirt_dns_server: 172.16.113.254
 libvirt_dns_key: /etc/clefupdate.key
 libvirt_dns_zone: dom113.u13.org
+
+# Ip prefix used for newly created VMs
+libvirt_ip_prefix: '172.16.113'
