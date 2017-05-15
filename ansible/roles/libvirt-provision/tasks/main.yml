@@ -11,7 +11,7 @@
 - name: Calculate MAC addresses for VMs
   set_fact:
     __libvirt_vm_macs: >
-      { "{{ item.key }}": { "mac": "{% for mac_part in (item.key | hash('sha1'))[-6:] | slice(3) %}{{ mac_part | join('') }}{{ '' if loop.last else ':' }}{% endfor %}" } }
+      { "{{ item.key }}": { "mac": "{{ libvirt_mac_prefix }}:{% for mac_part in (item.key | hash('sha1'))[-6:] | slice(3) %}{{ mac_part | join('') }}{{ '' if loop.last else ':' }}{% endfor %}" } }
   with_dict: "{{ libvirt_vms }}"
 
 - name: Associate MAC address with VMs
