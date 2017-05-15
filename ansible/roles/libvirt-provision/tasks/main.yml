@@ -24,7 +24,7 @@
     verbosity: 2
 
 - include: create.yml
-  when: libvirt_vms == 'create'
+  when: libvirt_vm_state == 'create'
 
 - include: delete.yml
   when: libvirt_vm_state == 'delete'
