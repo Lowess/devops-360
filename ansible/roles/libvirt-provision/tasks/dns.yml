@@ -27,7 +27,19 @@
 ### DNS Configuration
 ################################################################################
 
-# In a real wold: Should be done with Ansible Vault
+# In a real wold, `key_name` and `key_secret` Should be stored in Ansible Vault file
+- name: Grab the TSIG key
+  shell: >
+    grep key {{ libvirt_dns_key }}
+  register: __libvirt_dns_key_name
+  changed_when: False
+
+- name: Grab the TSIG secret
+  shell: >
+    grep secret {{ libvirt_dns_key }} | tr -d ';'
+  register: __libvirt_dns_key_secret
+  changed_when: False
+
 - name: Configure DNSs for VMs
   nsupdate:
     state: "{{ (libvirt_vm_state == 'create') | ternary('present', 'absent') }}"
@@ -37,8 +49,8 @@
     zone: "{{ libvirt_dns_zone }}"
     value: "{{ item.value.ip }}"
     record: "{{ item.key }}"
-    key_name: "{{ lookup('pipe', 'grep key ' ~ libvirt_dns_key).split(' ')[1] | replace('\"', '') }}"
-    key_secret: "{{ lookup('pipe', \"grep secret \" ~ libvirt_dns_key ~ \" | tr -d ';' \").split(' ')[1] | replace('\"', '') }}"
+    key_name: "{{ (__libvirt_dns_key_name.stdout).split(' ')[1] | replace('\"', '') }}"
+    key_secret: "{{ (__libvirt_dns_key_secret.stdout).split(' ')[1] | replace('\"', '') }}"
   with_dict: "{{ libvirt_vms }}"
 
 - name: Wait for VMs to be reachable on SSH through their DNS
