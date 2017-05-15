@@ -61,7 +61,7 @@
 
         <interface type='bridge'>
             <mac address='{{ item.value.mac }}'/>
-            <source bridge='ccm'/>
+            <source bridge='{{ libvirt_bridge }}'/>
             <model type='virtio'/>
             <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
         </interface>

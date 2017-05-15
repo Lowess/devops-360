@@ -19,7 +19,7 @@ libvirt_dns_zone: dom110.u13.org
 
 # Ip prefix used for newly created VMs
 libvirt_ip_prefix: '172.16.110'
-
+libvirt_bridge: ccm
 libvirt_vms:
   ansible-test:
     cpu: 1
