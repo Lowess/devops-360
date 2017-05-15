@@ -1,0 +1,19 @@
+---
+# defaults file for libvirt-provision
+#
+
+libvirt_images_folder: /var/lib/libvirt/images
+libvirt_base_image: Ubuntu-14.04-64-cons.qcow2
+
+# Ip prefix used for newly created VMs
+libvirt_ip_prefix: '172.16.110.'
+libvirt_ip_offset: 30
+
+libvirt_dns_server: 172.16.110.254
+libvirt_dns_key: /etc/rndc.key
+libvirt_dns_zone: dom110.u13.org
+
+libvirt_vms:
+  - name: ubuntu-test
+    cpu: 1
+    mem: 768
