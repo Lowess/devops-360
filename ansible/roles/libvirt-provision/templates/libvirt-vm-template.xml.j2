@@ -60,7 +60,7 @@
         <controller type='pci' index='0' model='pci-root'/>
 
         <interface type='bridge'>
-            <mac address='{{ libvirt_mac_prefix }}:{{ item.mac }}'/>
+            <mac address='{{ libvirt_mac_prefix }}:{{ item.value.mac }}'/>
             <source bridge='ccm'/>
             <model type='virtio'/>
             <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
