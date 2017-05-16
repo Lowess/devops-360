@@ -94,10 +94,3 @@ ENV/
 
 # Custom section
 ansible/vault-secret
-#ansible/roles/common
-#ansible/roles/mysql
-#ansible/roles/webapp
-#ansible/roles/nginx
-#ansible/roles/uwsgi
-#ansible/roles/libvirt-old
-
