@@ -26,4 +26,4 @@ libvirt_vms:
   ansible-test:
     cpu: 1
     mem: 768
-    ip: "{{ libvirt_ip_prefix }}.50"
+    ip: "{{ libvirt_ip_prefix }}.10"
