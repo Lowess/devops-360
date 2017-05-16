@@ -16,11 +16,11 @@ pip install ansible==2.3.0.0
 
 The role `libvirt` allows you to start VMs using KVM. You will have to override certain variables so that the role can work on your own server.
 
-> (:interrobang:) Determine which variables you should override from [defaults/vars.yml](ansible/roles/libvirt/defaults/main.yml) in order to make the module working on your server.
+> :interrobang: Determine which variables you should override from [defaults/vars.yml](ansible/roles/libvirt/defaults/main.yml) in order to make the module working on your server.
 
-> (:interrobang:) Once you have identified the variables you need to override, create an inventory folder called `vms` under `<root>/ansible/inventories/` and add an empty `hosts` file under `vms`. Create `group_vars/all/libvirt` and add `group_vars/all/libvirt/vars.yml` file with your variable overrides.
+> :interrobang: Once you have identified the variables you need to override, create an inventory folder called `vms` under `<root>/ansible/inventories/` and add an empty `hosts` file under `vms`. Create `group_vars/all/libvirt` and add `group_vars/all/libvirt/vars.yml` file with your variable overrides.
 
-> (:interrobang:) In order to keep the command line light, we will create a bash `alias` (add this line the your `~/.bashrc`) with the following command:
+> :interrobang: In order to keep the command line light, we will create a bash `alias` (add this line the your `~/.bashrc`) with the following command:
 
 ```
 alias play="ansible-playbook -i inventories/vms"
