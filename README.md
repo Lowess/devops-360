@@ -34,6 +34,9 @@ At this stage, you are ready to test if you did well so far :sweat_smile:, Let's
 
 ```
 play vm-create.yml
+
+### If you want you can run virsh list to make sure the VM is real
+virsh list
 ```
 
 If the playbook completes successfully, try to SSH into your VM with:
@@ -42,7 +45,16 @@ If the playbook completes successfully, try to SSH into your VM with:
 ssh root@ansible-test.domXYZ.u13.or
 ```
 
-If that works, let's order appetizers!
+If that works, let's destroy this ansible-test VM with:
+
+```
+play vm-delete.yml
+
+### Again, you can run virsh list to make sure the VM is gone
+virsh list
+```
+
+...and let's order appetizers!
 
 ## 2. Stage 2 - Appetizers
   TODO
