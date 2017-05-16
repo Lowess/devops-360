@@ -26,7 +26,23 @@ The role `libvirt` allows you to start VMs using KVM. You will have to override 
 alias play="ansible-playbook -i inventories/vms"
 ```
 
+To make the alias active, either logout/login or run `source ~/.bashrc`.
+
 From now, you will use `play` instead of `ansible-playbook`. Keep in mind what is happening behind the scene when you use the alias.
+
+At this stage, you are ready to test if you did well so far :sweat_smile:, Let's try to run `vm-create.yml` playbook:
+
+```
+play vm-create.yml
+```
+
+If the playbook completes successfully, try to SSH into your VM with:
+
+```
+ssh root@ansible-test.domXYZ.u13.or
+```
+
+If that works, let's order appetizers!
 
 ## 2. Stage 2 - Appetizers
   TODO
