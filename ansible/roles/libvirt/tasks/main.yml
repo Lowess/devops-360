@@ -1,19 +1,60 @@
 ---
-# tasks file for libvirt
+# tasks file for libvirt-provision
+
+################################################################################
+### Set dynamic variables
+################################################################################
+
+# Generate MAC addresses using SHA1 on VM name
+# Output:
+# {
+#   "ubuntu-test": {
+#     "mac": "42:4d:01"
+# }
+#
+- name: Calculate MAC addresses for VMs
+  set_fact:
+    __libvirt_vm_mac: >
+      { "{{ item.key }}": { "mac": "{{ libvirt_mac_prefix }}:{% for mac_part in (item.key | hash('sha1'))[-6:] | slice(3) %}{{ mac_part | join('') }}{{ '' if loop.last else ':' }}{% endfor %}" } }
+  with_dict: "{{ libvirt_vms }}"
+  register: __libvirt_vm_macs
+
+- name: Associate MAC address with VMs
+  set_fact:
+    libvirt_vms: "{{ libvirt_vms | combine(item, recursive=True) }}"
+  with_items: "{{ __libvirt_vm_macs.results | map(attribute='ansible_facts.__libvirt_vm_mac') | list }}"
+
+- name: Show the list of VMs
+  debug:
+    msg: "{{ libvirt_vms }}"
+    verbosity: 2
+
+################################################################################
+### Install dependencies
+################################################################################
+
+- name: Install python-pip
+  package:
+    state: present
+    name: python-pip
 
 - name: Install nsupdate python pip dependency
   pip:
     state: present
     name: dnspython
 
-- name: Gather the list of VM
-  virt:
-    command: list_vms
-  register: __libvirt_current_vms
+################################################################################
+### Manage VMs
+################################################################################
 
-- include: vm-create.yml
+- include: create.yml
   when: libvirt_vm_state == 'create'
 
-- include: vm-delete.yml
+- include: delete.yml
   when: libvirt_vm_state == 'delete'
 
+################################################################################
+### Manage DNS entries
+################################################################################
+
+- include: dns.yml

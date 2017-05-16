@@ -1,0 +1,28 @@
+---
+################################################################################
+### VM Definition and creation
+################################################################################
+
+- name: Copy the base image disk
+  copy:
+    src: "{{ libvirt_images_folder }}/{{ libvirt_base_image }}"
+    dest: "{{ libvirt_images_folder }}/{{ item.key }}{{ (libvirt_base_image | splitext)[1] }}"
+    remote_src: yes
+    force: no
+    owner: "{{ libvirt_user }}"
+    group: "{{ libvirt_user }}"
+    mode: '0644'
+  with_dict: "{{ libvirt_vms }}"
+
+- name: Define VMs
+  virt:
+    name: "{{ item.key }}"
+    command: define
+    xml: "{{ lookup('template', 'libvirt-vm-template.xml.j2') }}"
+  with_dict: "{{ libvirt_vms }}"
+
+- name: Start VMs
+  virt:
+    state: running
+    name: "{{ item.key }}"
+  with_dict: "{{ libvirt_vms }}"
