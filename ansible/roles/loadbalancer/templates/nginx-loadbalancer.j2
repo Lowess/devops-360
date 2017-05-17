@@ -1,3 +1,4 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
 upstream devops-360-loadbalancer {
     {% for balanced_server in loadbalancer_servers %}
     server {{ balanced_server }};
@@ -16,4 +17,5 @@ server {
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-For $remote_addr;
         proxy_pass http://devops-360-loadbalancer;
+    }
 }
