@@ -12,6 +12,7 @@
   vars_prompt:
     - name: "blue_green_master"
       prompt: "Which stack should be used as master? [blue, green]"
+      private: no
       default: blue
 
   pre_tasks:
