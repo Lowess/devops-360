@@ -1,24 +1,20 @@
 ################################################################################
-# > Playbook used to configure databases
+# > Playbook used to configure loadbalancer
 #
 # @author: Florian DAMBRINE <@Lowess>
 ################################################################################
 ---
 
-- name: Configure databases
-  hosts: databases
+- name: Configure loadbalancers
+  hosts: loadbalancers
   become: yes
 
   roles:
     - role: common
       tags: ['common']
 
-    - role: mysql
-      tags: ['mysql']
+    - role: nginx
+      tags: ['nginx']
 
-    - role: webapp
-      webapp_setup_enabled: no
-      tags: ['webapp']
-
-    - role: webapp-database
-      tags: ['webapp-database']
+    - role: loadbalancer
+      tags: ['loadbalancer']

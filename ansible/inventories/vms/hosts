@@ -3,3 +3,6 @@
 
 [databases]
 00.mysql.dom110.u13.org
+
+[loadbalancers]
+00.loadbalancer.dom110.u13.org

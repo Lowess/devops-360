@@ -1,0 +1,22 @@
+---
+# tasks file for loadbalancer
+
+- name: Deploy the loadbalancer Nginx configuration
+  template:
+    src: nginx-loadbalancer.j2
+    dest: /etc/nginx/sites-available/loadbalancer
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart Nginx
+
+- name: Symlink the loadbalancer Nginx configuration
+  file:
+    state: link
+    src: /etc/nginx/sites-available/loadbalancer
+    path: /etc/nginx/sites-enabled/loadbalancer
+    owner: root
+    group: root
+  notify:
+    - Restart Nginx

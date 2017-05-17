@@ -1,0 +1,19 @@
+upstream devops-360-loadbalancer {
+    {% for balanced_server in loadbalancer_servers %}
+    server {{ balanced_server }};
+    {% endfor %}
+}
+
+server {
+    listen *:80;
+    server_name _;
+
+    access_log /var/log/nginx/devops-360-loadbalancer-access.log;
+    error_log /var/log/nginx/devops-360-loadbalancer-error.log;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_pass http://devops-360-loadbalancer;
+}

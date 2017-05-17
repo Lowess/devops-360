@@ -1,7 +1,7 @@
 ---
 
 libvirt_vms:
-  00.nginx:
+  00.loadbalancer:
     cpu: 1
     mem: 768
     ip: "{{ libvirt_ip_prefix }}.50"

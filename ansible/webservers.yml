@@ -1,11 +1,10 @@
 ################################################################################
 # > Playbook used to configure webservers
 #
-# @author: <Your Name>
+# @author: Florian DAMBRINE <@Lowess>
 ################################################################################
 ---
 
-# TODO
 - name: Configure webservers
   hosts: webservers
   become: yes

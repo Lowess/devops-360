@@ -1,0 +1,4 @@
+---
+# defaults file for loadbalancer
+
+loadbalancer_servers: groups['webservers']
