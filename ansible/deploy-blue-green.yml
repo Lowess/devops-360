@@ -1,0 +1,13 @@
+################################################################################
+# > Main playbook used to spin up and configure the entire infrastructure beofre
+#   doing a blue/green deployment
+#
+# @author: Florian DAMBRINE <@Lowess>
+################################################################################
+---
+
+- include: vm-create.yml
+- include: databases.yml
+- include: webservers.yml
+- include: loadbalancers.yml
+- include: blue-green.yml

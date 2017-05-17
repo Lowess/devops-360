@@ -1,0 +1,4 @@
+---
+
+loadbalancer_servers:
+  -  "{{ hostvars[groups[blue_green_master ~ 'loadbalancers'][0]].ansible_eth0.ipv4.address}}"

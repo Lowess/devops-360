@@ -1,0 +1,3 @@
+---
+
+loadbalancer_servers: "{{ groups['webservers'] }}"

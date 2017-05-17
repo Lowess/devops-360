@@ -1,0 +1,44 @@
+---
+
+libvirt_vms:
+  ##############################################################################
+  ### Blue Stack
+  ##############################################################################
+
+  00.loadbalancer.blue:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.50"
+  00.webserver.blue:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.60"
+  01.webserver.blue:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.61"
+  00.mysql.blue:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.70"
+
+  ##############################################################################
+  ### Green Stack
+  ##############################################################################
+
+  10.loadbalancer.green:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.150"
+  10.webserver.green:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.160"
+  11.webserver.green:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.161"
+  10.mysql.green:
+    cpu: 1
+    mem: 768
+    ip: "{{ libvirt_ip_prefix }}.170"

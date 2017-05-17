@@ -1,0 +1,6 @@
+---
+
+webapp_mysql_db: 'beerbattle'
+webapp_mysql_user: 'beerbattle'
+webapp_mysql_pwd: "{{ vault_webapp_mysql_pwd }}"
+
