@@ -1,0 +1,5 @@
+---
+# defaults file for blue-green
+
+blue_green_master: blue
+blue_green_loadbalancer: !!null

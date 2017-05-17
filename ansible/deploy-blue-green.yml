@@ -1,13 +1,26 @@
 ################################################################################
-# > Main playbook used to spin up and configure the entire infrastructure beofre
-#   doing a blue/green deployment
+# > Playbook used to configure blue/green master loadbalancer
 #
 # @author: Florian DAMBRINE <@Lowess>
 ################################################################################
 ---
 
-- include: vm-create.yml
-- include: databases.yml
-- include: webservers.yml
-- include: loadbalancers.yml
-- include: blue-green.yml
+- name: Configure blue/green master loadbalancer
+  hosts: localhost
+  become: yes
+
+  vars_prompt:
+    - name: "blue_green_master"
+      prompt: "Which stack should be used as master? [blue, green]"
+      default: blue
+
+  pre_tasks:
+    - name: Check user input
+      assert:
+        that:
+          - "blue_green_master in ['blue', 'green']"
+        msg: 'The master stack should either be "blue" or "green"'
+
+  roles:
+    - role: blue-green
+      tags: ['blue-green']

@@ -6,7 +6,7 @@
 [00:01].webserver.blue.dom110.u13.org
 
 [databases-blue]
-00.mysql.dom110.blue.u13.org
+00.mysql.blue.dom110.u13.org
 
 [loadbalancers-blue]
 00.loadbalancer.blue.dom110.u13.org
@@ -21,10 +21,10 @@ loadbalancers-blue
 ################################################################################
 
 [webservers-green]
-[10:11].webserver.blue.dom110.u13.org
+[10:11].webserver.green.dom110.u13.org
 
 [databases-green]
-10.mysql.dom110.blue.u13.org
+10.mysql.green.dom110.u13.org
 
 [loadbalancers-green]
 10.loadbalancer.green.dom110.u13.org
