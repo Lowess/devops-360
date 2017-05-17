@@ -1,3 +1,4 @@
 ---
 
 webapp_git_version: v2.0.1
+webapp_mysql_server: "{{ hostvars[groups['databases-green'][0]].ansible_eth0.ipv4.address }}"
