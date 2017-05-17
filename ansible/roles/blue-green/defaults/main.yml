@@ -3,3 +3,7 @@
 
 blue_green_master: blue
 blue_green_loadbalancer: !!null
+
+blue_green_dns_zone: dom110.u13.org
+blue_green_dns_server: 172.16.110.254
+blue_green_dns_key: /etc/rndc.key
