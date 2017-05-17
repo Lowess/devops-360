@@ -1,6 +1,12 @@
 ################################################################################
 # > Main playbook used to spin up and configure the entire infrastructure
 #
+### Create the classic infra with loadbalancer + webservers and database
+# >  ansible-playbook -i inventories/vms/ infra-create.yml
+#
+### Create the blue/green infra with 2x (loadbalancer + webservers and database)
+# > ansible-playbook -i inventories/blue-green/ infra-create.yml
+#
 # @author: Florian DAMBRINE <@Lowess>
 ################################################################################
 ---

@@ -3,7 +3,5 @@
 blue_green_master: blue
 blue_green_loadbalancer: "{{ hostvars[groups[blue_green_master ~ 'loadbalancers'][0]].ansible_eth0.ipv4.address}}"
 
+# Will become beerbattle.domXYZ.u13
 blue_green_dns: beerbattle
-blue_green_dns_zone: dom110.u13.org
-blue_green_dns_server: 172.16.110.254
-blue_green_dns_key: /etc/rndc.key
