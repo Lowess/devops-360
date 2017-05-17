@@ -67,8 +67,8 @@ virsh list
 Now that you have a configured `libvirt` role, we will start working on a first stage of the project [**BeerBattle** alias devops-360-webapp](https://github.com/Lowess/devops-360-webapp).
 
 Let's begin with a simple infrastructure for now:
-  * One webserver (vm name = 00.webserver | ip = 172.16.XYZ.60)
-  * One database (vm name = 00.mysql | ip = 172.16.XYZ.70)
+  * One webserver (VM name = `00.webserver` | ip = `172.16.XYZ.60`)
+  * One database (VM name = `00.mysql` | ip = `172.16.XYZ.70`)
 
 > :interrobang: Let's override the `libvirt_vms` variables in our `group_vars` to define new VMs.
 
@@ -96,13 +96,22 @@ For this stage, we will split the two-person team into two. One of you will work
 
 ##### 3.1. `webservers.yml`
 
+* Checkout the application requirements that the developers have left for you in [2. Web application](https://github.com/Lowess/devops-360-webapp#2-web-application)
+
+> :interrobang: Think about what roles you should create to automate the BeerBattle webapp and implement them.
+
 ##### 3.2. `databases.yml`
+
+* Checkout the database requirements that the developers have left for you in [1. Mysql Database](https://github.com/Lowess/devops-360-webapp#1-mysql-database)
+
+> :interrobang: Think about what roles you should create to automate the BeerBattle database and implement them.
 
 ## 4. Stage 4 - Cheese plate
 
 In this section we will work on scalability and redundancy. Let's add an extra webserver and a loadbalancer to the infrastructure:
-  * One more webserver (vm name = 01.webserver | ip = 172.16.XYZ.61)
-  * One load balancer (vm name = 00.loadbalancer | ip = 172.16.XYZ.50)
+  * One more webserver (VM name = `01.webserver` | ip = `172.16.XYZ.61`)
+  * One load balancer (VM name = `00.loadbalancer` | ip = `172.16.XYZ.50`)
+
 
 ## 5. Stage 5 - Desert
 
