@@ -1,7 +1,7 @@
 ---
 
 blue_green_master: blue
-blue_green_loadbalancer: "{{ hostvars[groups[blue_green_master ~ 'loadbalancers'][0]].ansible_eth0.ipv4.address}}"
+blue_green_loadbalancer: "{{ hostvars[groups['loadbalancers-' ~ blue_green_master][0]].ansible_eth0.ipv4.address}}"
 
 # Will become beerbattle.domXYZ.u13
 blue_green_dns: beerbattle
