@@ -94,11 +94,19 @@ Once you think you have the common parts, let's order the main course!
 
 For this stage, we will split the two-person team into two. One of you will work on `webservers.yml` and specific web roles and the other one will work on `databases.yml` and the related roles.
 
+> :interrobang: For now, the goal is to install and configure the version `v1.0.0` of the webapp and the database.
+
+> :round_pushpin: As you can see, both of you need to deploy the devops-360-webapp repository, it might be a good idea to coordinate with your peer and create a `role` for that so that you do not do the same job twice. 
+
 ##### 3.1. `webservers.yml`
 
 * Checkout the application requirements that the developers have left for you in [2. Web application](https://github.com/Lowess/devops-360-webapp#2-web-application)
 
+* You will find all the details of the application endpoints if you need [Application endpoints](https://github.com/Lowess/devops-360-webapp#22-application-endpoints)
+
 > :interrobang: Think about what roles you should create to automate the BeerBattle webapp and implement them.
+
+> :round_pushpin: Here are some useful links for you that you may need [How to Serve Flask applications with UWSGI](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-14-04), [Python Virtualenv](https://virtualenv.pypa.io/en/stable/), [Quickstart for Python WSGI applications](https://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html#quickstart-for-python-wsgi-applications)
 
 ##### 3.2. `databases.yml`
 
@@ -106,12 +114,16 @@ For this stage, we will split the two-person team into two. One of you will work
 
 > :interrobang: Think about what roles you should create to automate the BeerBattle database and implement them.
 
+> :round_pushpin: Here are some useful links for you that you may need [Ansible Mysql modules](http://docs.ansible.com/ansible/list_of_database_modules.html#mysql), [A Basic Mysql Tutorial](https://www.digitalocean.com/community/tutorials/a-basic-mysql-tutorial), [MySQL Utilities ~/.my.cnf](http://stackoverflow.com/questions/16299603/mysql-utilities-my-cnf-option-file).
+
+
 ## 4. Stage 4 - Cheese plate
 
 In this section we will work on scalability and redundancy. Let's add an extra webserver and a loadbalancer to the infrastructure:
   * One more webserver (VM name = `01.webserver` | ip = `172.16.XYZ.61`)
   * One load balancer (VM name = `00.loadbalancer` | ip = `172.16.XYZ.50`)
 
+> :interrobang: The webserver part should be really quick to do as this server is the same as `00.webserver`. For `00.loadbalancer` you can install Nginx and use Nginx to do loadbalancing over your two webservers ([Using nginx as HTTP load balancer](http://nginx.org/en/docs/http/load_balancing.html)). If you already built an `nginx` role, you can reuse it, otherwise it might be time to refactor some code :smirk: ...
 
 ## 5. Stage 5 - Desert
 
@@ -121,12 +133,75 @@ Let's do a release process.
 
 Let's do a blue/green deployment on the infrastructure.
 
+Blue/Green deployment means that you should duplicate your stack like:
+![Image of Blue/Green Infrastructure](https://martinfowler.com/bliki/images/blueGreenDeployment/blue_green_deployments.png)
+
+Here is how your inventory should look like:
+
+```
+###############################################################################
+### Blue Stack
+###############################################################################
+
+[webservers-blue]
+[00:01].webserver.blue.dom110.u13.org
+
+[databases-blue]
+00.mysql.blue.dom110.u13.org
+
+[loadbalancers-blue]
+00.loadbalancer.blue.dom110.u13.org
+
+[blue:children]
+webservers-blue
+databases-blue
+loadbalancers-blue
+
+###############################################################################
+### Green Stack
+###############################################################################
+
+[webservers-green]
+[10:11].webserver.green.dom110.u13.org
+
+[databases-green]
+10.mysql.green.dom110.u13.org
+
+[loadbalancers-green]
+10.loadbalancer.green.dom110.u13.org
+
+[green:children]
+webservers-green
+databases-green
+loadbalancers-green
+
+###############################################################################
+### General section
+###############################################################################
+
+[webservers:children]
+webservers-blue
+webservers-green
+
+[databases:children]
+databases-blue
+databases-green
+
+[loadbalancers:children]
+loadbalancers-blue
+loadbalancers-green
+```
+
+Create a new inventory like `inventories/blue-green` and drop the above `host` file in there.
+
+If needed: On the ansible controller, drop the following configuration in `/etc/nginx/sites-available/proxy` (Remember to create the symlink in `/etc/nginx/sites-enabled/proxy` and make sure the `/etc/nginx/nginx.conf` has the `include /etc/nginx/sites-enabled/*;` statement in the `http` block):
+
 ```
 resolver 172.16.XYZ.254;
 
 server {
     listen *:80;
-    server_name florian.u13.org;
+    server_name _;
 
     access_log /var/log/nginx/beerbattle-loadbalancer-access.log;
     error_log /var/log/nginx/beerbattle-loadbalancer-error.log;
