@@ -116,6 +116,31 @@ For this stage, we will split the two-person team into two. One of you will work
 
 > :round_pushpin: Here are some useful links for you that you may need [Ansible Mysql modules](http://docs.ansible.com/ansible/list_of_database_modules.html#mysql), [A Basic Mysql Tutorial](https://www.digitalocean.com/community/tutorials/a-basic-mysql-tutorial), [MySQL Utilities ~/.my.cnf](http://stackoverflow.com/questions/16299603/mysql-utilities-my-cnf-option-file).
 
+##### 3.3. Note about accessing `00.webserver` on port 80
+
+If you can not connect to `00.webserver.domXYZ.u13.org`, You will have to install Nginx and configure it as a reverse proxy to send traffic to `00.webserver` on the Ansible controller, the configuration should look like:
+
+```
+upstream devops-360-proxy {
+    server 00.webserver.domXYZ.u13.org;
+}
+
+server {
+    listen *:80;
+    server_name _;
+
+    access_log /var/log/nginx/devops-360-proxy-access.log;
+    error_log /var/log/nginx/devops-360-proxy-error.log;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_pass http://devops-360-proxy;
+    }
+}
+```
+
 
 ## 4. Stage 4 - Cheese plate
 
@@ -143,6 +168,29 @@ Let's release `v2.0.0` on the webserver `00.webserver`. For this deployment we w
 ![Image Canary release](https://martinfowler.com/bliki/images/canaryRelease/canary-release-2.png)
 
 > :interrobang: During this deployment, the database `00.mysql` will also have to upgrade the database schemas. Make sure your automation runs on `00.mysql` and `00.webserver` but make sure to leave `01.webserver` intact! Once the release is done, you should have both `v1.0.0` and `v2.0.0` available through the loadbalancer `00.loadbalancer`. Update whatever variables you need to do this release process, you can also use `--extra-vars` argument with your `play` command.
+
+If you can not connect to `00.loadbalancer.domXYZ.u13.org`, You will have to install Nginx and configure it as a reverse proxy to send traffic to `00.loadbalancer` on the Ansible controller, the configuration should look like:
+
+```
+upstream devops-360-proxy {
+    server 00.loadbalancer.domXYZ.u13.org;
+}
+
+server {
+    listen *:80;
+    server_name _;
+
+    access_log /var/log/nginx/devops-360-proxy-access.log;
+    error_log /var/log/nginx/devops-360-proxy-error.log;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_pass http://devops-360-proxy;
+    }
+}
+```
 
 > :interrobang: Is the `v2.0.0` running properly ? What should we do we do now ?
 
