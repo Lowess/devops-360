@@ -18,7 +18,7 @@
   nsupdate:
     state: present
     server: "{{ blue_green_dns_server }}"
-    type: CNAME
+    type: A
     ttl: 60
     zone: "{{ blue_green_dns_zone }}"
     value: "{{ blue_green_loadbalancer }}"
