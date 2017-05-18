@@ -3,7 +3,7 @@
 blue_green_master: blue
 
 # Build the CNAME record set based on the which deployment we want
-blue_green_loadbalancer: "{{ blue_green_master == 'blue' | ternary('00', '10') ~ '.loadbalancer.' ~ blue_green_master ~ '.' ~ blue_green_dns_zone }}"
+blue_green_loadbalancer: "{{ (blue_green_master == 'blue') | ternary('00', '10') ~ '.loadbalancer.' ~ blue_green_master ~ '.' ~ blue_green_dns_zone }}"
 
 # Will become beerbattle.domXYZ.u13
 blue_green_dns: beerbattle
