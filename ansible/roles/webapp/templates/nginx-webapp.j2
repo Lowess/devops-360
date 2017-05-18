@@ -19,4 +19,12 @@ server {
         uwsgi_pass devops-360-webapp;
         include uwsgi_params;
     }
+
+    location /static {
+       alias {{ webapp_root }}/app/static;
+       proxy_cache_key $host$uri$is_args$args;
+       proxy_cache_valid 200 301 302 12h;
+       expires 12h;
+    }
+
 }
