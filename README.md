@@ -94,18 +94,28 @@ Once you think you have the common parts, let's order the main course!
 
 For this stage, we will split the two-person team into two. One of you will work on `webservers.yml` and specific web roles and the other one will work on `databases.yml` and the related roles.
 
+> :interrobang: For now, the goal is to install and configure the version `v1.0.0` of the webapp and the database.
+
+> :round_pushpin: As you can see, both of you need to deploy the devops-360-webapp repository, it might be a good idea to coordinate with your peer and create a `role` for that so that you do not do the same job twice. 
+
 ##### 3.1. `webservers.yml`
 
 * Checkout the application requirements that the developers have left for you in [2. Web application](https://github.com/Lowess/devops-360-webapp#2-web-application)
 
 * You will find all the details of the application endpoints if you need [Application endpoints](https://github.com/Lowess/devops-360-webapp#22-application-endpoints)
+
 > :interrobang: Think about what roles you should create to automate the BeerBattle webapp and implement them.
+
+> :round_pushpin: Here are some useful links for you that you may need [How to Serve Flask applications with UWSGI](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-14-04), [Python Virtualenv](https://virtualenv.pypa.io/en/stable/), [Quickstart for Python WSGI applications](https://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html#quickstart-for-python-wsgi-applications)
 
 ##### 3.2. `databases.yml`
 
 * Checkout the database requirements that the developers have left for you in [1. Mysql Database](https://github.com/Lowess/devops-360-webapp#1-mysql-database)
 
 > :interrobang: Think about what roles you should create to automate the BeerBattle database and implement them.
+
+> :round_pushpin: Here are some useful links for you that you may need [Ansible Mysql modules](http://docs.ansible.com/ansible/list_of_database_modules.html#mysql), [A Basic Mysql Tutorial](https://www.digitalocean.com/community/tutorials/a-basic-mysql-tutorial), [MySQL Utilities ~/.my.cnf](http://stackoverflow.com/questions/16299603/mysql-utilities-my-cnf-option-file).
+
 
 ## 4. Stage 4 - Cheese plate
 
@@ -184,8 +194,7 @@ loadbalancers-green
 
 Create a new inventory like `inventories/blue-green` and drop the above `host` file in there.
 
-
-If needed: On the ansible controller, drop the following configuration in `/etc/nginx/sites-available/proxy`:
+If needed: On the ansible controller, drop the following configuration in `/etc/nginx/sites-available/proxy` (Remember to create the symlink in `/etc/nginx/sites-enabled/proxy` and make sure the `/etc/nginx/nginx.conf` has the `include /etc/nginx/sites-enabled/*;` statement in the `http` block):
 
 ```
 resolver 172.16.XYZ.254;
