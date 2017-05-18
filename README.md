@@ -125,13 +125,34 @@ In this section we will work on scalability and redundancy. Let's add an extra w
 
 > :interrobang: The webserver part should be really quick to do as this server is the same as `00.webserver`. For `00.loadbalancer` you can install Nginx and use Nginx to do loadbalancing over your two webservers ([Using nginx as HTTP load balancer](http://nginx.org/en/docs/http/load_balancing.html)). If you already built an `nginx` role, you can reuse it, otherwise it might be time to refactor some code :smirk: ...
 
+Everything is working? It's time for the desert then!
+
 ## 5. Stage 5 - Desert
 
 Let's do a release process.
 
+If we sum-up, right now our infrastructure is made of:
+* `00.loadbalancer` : Clients entrypoint
+* `00.webserver` : Web server part of the loadbalancer serving the webapp
+* `01.webserver` : Web server part of the loadbalancer serving the webapp
+* `00.webserver` : Web server part of the loadbalancer serving the webapp
+* `00.mysql` : The database used by the webapp
+
+Let's release `v2.0.0` on the webserver `00.webserver`. For this deployment we will adopt a [Canary release](https://martinfowler.com/bliki/CanaryRelease.html) process:
+
+![Image Canary release](https://martinfowler.com/bliki/images/canaryRelease/canary-release-2.png)
+
+> :interrobang: During this deployment, the database `00.mysql` will also have to upgrade the database schemas. Make sure your automation runs on `00.mysql` and `00.webserver` but make sure to leave `01.webserver` intact! Once the release is done, you should have both `v1.0.0` and `v2.0.0` available through the loadbalancer `00.loadbalancer`. Update whatever variables you need to do this release process, you can also use `--extra-vars` argument with your `play` command.
+
+> :interrobang: Is the `v2.0.0` running properly ? What should we do we do now ?
+
+> :interrobang: Depending on how went the release, you should be fully running on `v1.0.0` or on `v2.0.0`.
+
+A full-course meal is never done without a digestive...
+
 ## 6. Stage 6 - Digestive
 
-Let's do a blue/green deployment on the infrastructure.
+Let's do a [Blue/Green](https://martinfowler.com/bliki/BlueGreenDeployment.html) deployment on the infrastructure.
 
 Blue/Green deployment means that you should duplicate your stack like:
 ![Image of Blue/Green Infrastructure](https://martinfowler.com/bliki/images/blueGreenDeployment/blue_green_deployments.png)
@@ -216,3 +237,5 @@ server {
     }
 }
 ```
+
+Made with ♥ for teaching people
