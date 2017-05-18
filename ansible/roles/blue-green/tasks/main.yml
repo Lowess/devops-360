@@ -18,8 +18,8 @@
   nsupdate:
     state: present
     server: "{{ blue_green_dns_server }}"
-    type: A
-    ttl: 60
+    type: ALIAS
+    ttl: 0
     zone: "{{ blue_green_dns_zone }}"
     value: "{{ blue_green_loadbalancer }}"
     record: "{{blue_green_dns }}"
