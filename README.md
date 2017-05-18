@@ -98,6 +98,7 @@ For this stage, we will split the two-person team into two. One of you will work
 
 * Checkout the application requirements that the developers have left for you in [2. Web application](https://github.com/Lowess/devops-360-webapp#2-web-application)
 
+* You will find all the details of the application endpoints if you need [Application endpoints](https://github.com/Lowess/devops-360-webapp#22-application-endpoints)
 > :interrobang: Think about what roles you should create to automate the BeerBattle webapp and implement them.
 
 ##### 3.2. `databases.yml`
@@ -112,6 +113,7 @@ In this section we will work on scalability and redundancy. Let's add an extra w
   * One more webserver (VM name = `01.webserver` | ip = `172.16.XYZ.61`)
   * One load balancer (VM name = `00.loadbalancer` | ip = `172.16.XYZ.50`)
 
+> :interrobang: The webserver part should be really quick to do as this server is the same as `00.webserver`. For `00.loadbalancer` you can install Nginx and use Nginx to do loadbalancing over your two webservers ([Using nginx as HTTP load balancer](http://nginx.org/en/docs/http/load_balancing.html)). If you already built an `nginx` role, you can reuse it, otherwise it might be time to refactor some code :smirk: ...
 
 ## 5. Stage 5 - Desert
 
@@ -121,12 +123,76 @@ Let's do a release process.
 
 Let's do a blue/green deployment on the infrastructure.
 
+Blue/Green deployment means that you should duplicate your stack like:
+![Image of Blue/Green Infrastructure](https://martinfowler.com/bliki/images/blueGreenDeployment/blue_green_deployments.png)
+
+Here is how your inventory should look like:
+
+```
+###############################################################################
+### Blue Stack
+###############################################################################
+
+[webservers-blue]
+[00:01].webserver.blue.dom110.u13.org
+
+[databases-blue]
+00.mysql.blue.dom110.u13.org
+
+[loadbalancers-blue]
+00.loadbalancer.blue.dom110.u13.org
+
+[blue:children]
+webservers-blue
+databases-blue
+loadbalancers-blue
+
+###############################################################################
+### Green Stack
+###############################################################################
+
+[webservers-green]
+[10:11].webserver.green.dom110.u13.org
+
+[databases-green]
+10.mysql.green.dom110.u13.org
+
+[loadbalancers-green]
+10.loadbalancer.green.dom110.u13.org
+
+[green:children]
+webservers-green
+databases-green
+loadbalancers-green
+
+###############################################################################
+### General section
+###############################################################################
+
+[webservers:children]
+webservers-blue
+webservers-green
+
+[databases:children]
+databases-blue
+databases-green
+
+[loadbalancers:children]
+loadbalancers-blue
+loadbalancers-green
+```
+
+Create a new inventory like `inventories/blue-green` and drop the above `host` file in there.
+
+
+If needed: On the ansible controller, drop the following configuration in `/etc/nginx/sites-available/proxy`:
+
 ```
 resolver 172.16.XYZ.254;
 
 server {
     listen *:80;
-    server_name florian.u13.org;
+    server_name _;
 
     access_log /var/log/nginx/beerbattle-loadbalancer-access.log;
     error_log /var/log/nginx/beerbattle-loadbalancer-error.log;
