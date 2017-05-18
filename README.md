@@ -120,3 +120,24 @@ Let's do a release process.
 ## 6. Stage 6 - Digestive
 
 Let's do a blue/green deployment on the infrastructure.
+
+```
+resolver 172.16.XYZ.254;
+
+server {
+    listen *:80;
+    server_name florian.u13.org;
+
+    access_log /var/log/nginx/beerbattle-loadbalancer-access.log;
+    error_log /var/log/nginx/beerbattle-loadbalancer-error.log;
+
+    set $upstream http://beerbattle.domXYZ.u13.org;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_pass $upstream;
+    }
+}
+```
