@@ -35,4 +35,6 @@
     state: import
     name: "{{ webapp_database_db }}"
     target: "{{ webapp_root }}/database/data/beerbattle.sql"
-  when: __webapp_database_created | changed
+  when:
+    - __webapp_database_created | changed
+    - webapp_database_force_dump

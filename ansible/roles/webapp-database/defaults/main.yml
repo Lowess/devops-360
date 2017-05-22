@@ -2,6 +2,8 @@
 # defaults file for webapp-database
 #
 
+webapp_database_force_dump: False
+
 webapp_database_user: 'beerbattle'
 webapp_database_pwd: 'changeme'
 webapp_database_db: 'beerbattle'
