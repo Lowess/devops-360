@@ -20,7 +20,7 @@
     name: "{{ webapp_database_db }}"
     target: "{{ item.path }}"
   register: __webapp_database_schema_import
-  with_items: "{{ __webapp_database_schemas.files }}"
+  with_items: "{{ __webapp_database_schemas.files | sort(attribute='path') }}"
 
 - name: Grant rights to the Webapp database user on its database
   mysql_user:
