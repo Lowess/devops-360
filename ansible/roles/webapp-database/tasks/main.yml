@@ -36,5 +36,5 @@
     name: "{{ webapp_database_db }}"
     target: "{{ webapp_root }}/database/data/beerbattle.sql"
   when:
-    - __webapp_database_created | changed
-    - webapp_database_force_dump
+    - (__webapp_database_created | changed) or
+      webapp_database_force_dump
