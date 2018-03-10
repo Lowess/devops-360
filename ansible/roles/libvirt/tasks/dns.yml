@@ -44,13 +44,13 @@
 # In a real wold, `key_name` and `key_secret` Should be stored in Ansible Vault file
 - name: Grab the TSIG key
   shell: >
-    grep key {{ libvirt_dns_key }}
+    grep key {{ libvirt_dns_key }} | awk '{ print $2 }'
   register: __libvirt_dns_key_name
   changed_when: False
 
 - name: Grab the TSIG secret
   shell: >
-    grep secret {{ libvirt_dns_key }} | tr -d ';'
+    grep secret {{ libvirt_dns_key }} | tr -d ';' | awk '{ print $2 }'
   register: __libvirt_dns_key_secret
   changed_when: False
 
@@ -63,8 +63,8 @@
     zone: "{{ libvirt_dns_zone }}"
     value: "{{ item.value.ip }}"
     record: "{{ item.key }}"
-    key_name: "{{ (__libvirt_dns_key_name.stdout).split(' ')[1] | replace('\"', '') | replace('{', '') }}"
-    key_secret: "{{ (__libvirt_dns_key_secret.stdout).split(' ')[1] | replace('\"', '') }}"
+    key_name: "{{ (__libvirt_dns_key_name.stdout) | replace('\"', '') | replace('{', '') }}"
+    key_secret: "{{ (__libvirt_dns_key_secret.stdout) | replace('\"', '') }}"
   with_dict: "{{ libvirt_vms }}"
 
 - name: Wait for VMs to be reachable on SSH through their DNS
