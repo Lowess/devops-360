@@ -47,14 +47,14 @@
 ### Manage VMs
 ################################################################################
 
-- include: create.yml
+- import_tasks: create.yml
   when: libvirt_vm_state == 'create'
 
-- include: delete.yml
+- import_tasks: delete.yml
   when: libvirt_vm_state == 'delete'
 
 ################################################################################
 ### Manage DNS entries
 ################################################################################
 
-- include: dns.yml
+- import_tasks: dns.yml
