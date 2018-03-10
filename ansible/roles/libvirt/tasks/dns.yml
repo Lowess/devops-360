@@ -73,4 +73,5 @@
     host: "{{ item.key }}.{{ libvirt_dns_zone }}"
     port: 22
     delay: 0
+    timeout: 30
   with_dict: "{{ libvirt_vms }}"
