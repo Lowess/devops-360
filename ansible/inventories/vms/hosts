@@ -1,8 +1,8 @@
 [webservers]
-[00:01].webserver.dom110.u13.org
+[00:01].webserver.dell110.u13.org
 
 [databases]
-00.mysql.dom110.u13.org
+00.mysql.dell110.u13.org
 
 [loadbalancers]
-00.loadbalancer.dom110.u13.org
+00.loadbalancer.dell110.u13.org
