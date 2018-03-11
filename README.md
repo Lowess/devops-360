@@ -7,7 +7,7 @@ DevOps 360° is an introduction to automation with Ansible. For more details abo
 ```
 sudo yum install python-pip git
 sudo pip install -U pip
-pip install ansible==2.3.0.0
+pip install ansible==2.4.3.0
 ```
 
 ## 1. Stage 1 - Drinks
@@ -96,7 +96,7 @@ For this stage, we will split the two-person team into two. One of you will work
 
 > :interrobang: For now, the goal is to install and configure the version `v1.0.0` of the webapp and the database.
 
-> :round_pushpin: As you can see, both of you need to deploy the devops-360-webapp repository, it might be a good idea to coordinate with your peer and create a `role` for that so that you do not do the same job twice. 
+> :round_pushpin: As you can see, both of you need to deploy the devops-360-webapp repository, it might be a good idea to coordinate with your peer and create a `role` for that so that you do not do the same job twice.
 
 ##### 3.1. `webservers.yml`
 
