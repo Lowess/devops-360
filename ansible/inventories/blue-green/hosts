@@ -3,13 +3,13 @@
 ################################################################################
 
 [webservers-blue]
-[00:01].webserver.blue.dom110.u13.org
+[00:01].webserver.blue.dell110.u13.org
 
 [databases-blue]
-00.mysql.blue.dom110.u13.org
+00.mysql.blue.dell110.u13.org
 
 [loadbalancers-blue]
-00.loadbalancer.blue.dom110.u13.org
+00.loadbalancer.blue.dell110.u13.org
 
 [blue:children]
 webservers-blue
@@ -21,13 +21,13 @@ loadbalancers-blue
 ################################################################################
 
 [webservers-green]
-[10:11].webserver.green.dom110.u13.org
+[10:11].webserver.green.dell110.u13.org
 
 [databases-green]
-10.mysql.green.dom110.u13.org
+10.mysql.green.dell110.u13.org
 
 [loadbalancers-green]
-10.loadbalancer.green.dom110.u13.org
+10.loadbalancer.green.dell110.u13.org
 
 [green:children]
 webservers-green
