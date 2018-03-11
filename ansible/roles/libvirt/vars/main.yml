@@ -1,2 +1,4 @@
 ---
 # vars file for libvirt-provision
+
+__libvirt_vms: {}
