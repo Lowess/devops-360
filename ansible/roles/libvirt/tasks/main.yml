@@ -21,7 +21,7 @@
 
 - name: Show the list of VMs
   debug:
-    msg: "{{ __libvirt_vm_macs.results |  map(attribute='ansible_facts }}"
+    msg: "{{ __libvirt_vm_macs.results |  map(attribute='ansible_facts') | list }}"
     verbosity: 2
 
 - name: Associate MAC address with VMs
