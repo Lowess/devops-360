@@ -13,7 +13,6 @@
     src: "{{ ngrok_download_url }}"
     dest: /usr/local/bin/
     remote_src: yes
-    copy: no
     owner: root
     group: root
     mode: '0744'
