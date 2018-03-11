@@ -10,6 +10,14 @@
   with_items:
       - unzip
       - apt-transport-https
+      - python-pip
+
+- name: Install python packages
+  pip:
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - urllib3[secure]
 
 - name: Download Ngrok
   unarchive:
