@@ -19,6 +19,11 @@
   with_dict: "{{ libvirt_vms }}"
   register: __libvirt_vm_macs
 
+- name: Show the list of VMs
+  debug:
+    msg: "{{ __libvirt_vm_macs.results |  map(attribute='ansible_facts }}"
+    verbosity: 2
+
 - name: Associate MAC address with VMs
   set_fact:
     __libvirt_vms: "{{ libvirt_vms | combine(item, recursive=True) }}"
