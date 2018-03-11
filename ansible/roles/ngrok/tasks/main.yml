@@ -1,0 +1,19 @@
+---
+# tasks file for ngrok
+
+- name: Install unzip
+  apt:
+    state: present
+    name: unzip
+    cache_valid_time: 3600
+    update_cache: yes
+
+- name: Download Ngrok
+  unarchive:
+    src: "{{ ngrok_download_url }}"
+    dest: /usr/local/bin/
+    remote_src: yes
+    copy: no
+    owner: root
+    group: root
+    mode: '0744'

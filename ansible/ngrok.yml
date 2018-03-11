@@ -1,0 +1,14 @@
+################################################################################
+# > Playbook used to install ngrok
+#
+# @author: Florian Dambrine
+################################################################################
+---
+
+# TODO
+- name: Install ngrok
+  hosts: all
+  become: yes
+
+  roles:
+    - ngrok
