@@ -26,10 +26,21 @@
     - pyasn1
 
 - name: Download Ngrok
+  get_url:
+    url: "{{ ngrok_download_url }}"
+    dest: "{{ ngrok_root_folder }}/ngrok.zip"
+
+- name: Extract Ngrok
   unarchive:
-    src: "{{ ngrok_download_url }}"
-    dest: /usr/local/bin/
+    src: "{{ ngrok_root_folder }}/ngrok.zip"
+    dest: "{{ ngrok_root_folder }}"
     remote_src: yes
     owner: root
     group: root
     mode: '0744'
+
+- name: Symlink Ngrok in /usr/local/bin
+  file:
+    state: link
+    src: "{{ ngrok_root_folder }}/ngrok"
+    dest: /usr/local/bin/ngrok
