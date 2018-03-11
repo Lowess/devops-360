@@ -7,7 +7,7 @@
     name: "{{ item }}"
     cache_valid_time: 3600
     update_cache: yes
-    with_items:
+  with_items:
       - unzip
       - apt-transport-https
 
