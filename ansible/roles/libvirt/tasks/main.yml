@@ -21,7 +21,7 @@
 
 - name: Associate MAC address with VMs
   set_fact:
-    __libvirt_vms: "{{ __libvirt_vms | combine(item, recursive=True) }}"
+    __libvirt_vms: "{{ libvirt_vms | combine(item, recursive=True) }}"
   with_items: "{{ __libvirt_vm_macs.results | map(attribute='ansible_facts.__libvirt_vm_mac') | list }}"
 
 - name: Show the list of VMs
