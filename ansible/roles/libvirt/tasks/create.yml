@@ -12,17 +12,17 @@
     owner: "{{ libvirt_user }}"
     group: "{{ libvirt_user }}"
     mode: '0644'
-  with_dict: "{{ libvirt_vms }}"
+  with_dict: "{{ __libvirt_vms }}"
 
 - name: Define VMs
   virt:
     name: "{{ item.key }}"
     command: define
     xml: "{{ lookup('template', 'libvirt-vm-template.xml.j2') }}"
-  with_dict: "{{ libvirt_vms }}"
+  with_dict: "{{ __libvirt_vms }}"
 
 - name: Start VMs
   virt:
     state: running
     name: "{{ item.key }}"
-  with_dict: "{{ libvirt_vms }}"
+  with_dict: "{{ __libvirt_vms }}"

@@ -1,0 +1,77 @@
+---
+# tasks file for libvirt/vm-delete.yml
+
+- name: Check VMs status
+  virt:
+    command: status
+    name: "{{ libvirt_origin_guest }}"
+  register: __libvirt_vms_status
+  with_items: "{{ __libvirt_vms }}"
+
+- name: Show VMs status
+  debug:
+    msg: "VMs status: {{ __libvirt_vms_status }}"
+    verbosity: 2
+
+- name: Shutdown VMs
+  virt:
+    state: shutdown
+    name: "{{ item.item.name }}"
+  when: item.status == 'running'
+  with_items: "{{ __libvirt_vms_status.results }}"
+
+- name: Destroy VMs
+  virt:
+    state: destroyed
+    name: "{{ item.item.name }}"
+  when: item.status == 'running'
+  with_items: "{{ __libvirt_vms_status.results }}"
+
+- name: Undefine VMs
+  virt:
+    command: undefine
+    name: "{{ item.item.name }}"
+  when: item.status == 'running'
+  with_items: "{{ __libvirt_vms_status.results }}"
+
+- name: Remove disk images associated with the old VMs
+  file:
+    state: absent
+    path: /var/lib/libvirt/images/{{ item.1.name }}.qcow2
+  with_indexed_items: "{{ __libvirt_vms }}"
+
+################################################################################
+### DHCP Configuration
+################################################################################
+
+- name: Remove DHCP entries for old VMs
+  lineinfile:
+    state: absent
+    create: yes
+    path: /etc/dhcp/vm-ansible.conf
+    line: "host {{ item.1.name }} { hardware ethernet {{ libvirt_mac_prefix ~ ('%02x' % (item.0 + libvirt_mac_offset)) }}; fixed-address {{ libvirt_ip_prefix ~ (item.0 + libvirt_ip_offset) }}; }"
+  register: __libvirt_dhcp_entries_deleted
+  with_indexed_items: "{{ __libvirt_vms }}"
+
+- name: Restart DHCP service
+  service:
+    state: restarted
+    name: dhcpd
+  when: __libvirt_dhcp_entries_deleted | changed
+
+################################################################################
+### DNS Configuration
+################################################################################
+
+# In a real wold: Should be done with Ansible Vault
+- name: Delete DNSs for old VMs
+  nsupdate:
+    state: absent
+    server: "{{ libvirt_dns_server }}"
+    type: A
+    zone: "{{ libvirt_dns_zone }}"
+    value: "{{ libvirt_ip_prefix ~ (item.0 + libvirt_ip_offset) }}"
+    record: "{{ item.1.name }}"
+    key_name: "{{ lookup('pipe', 'grep key ' ~ libvirt_dns_key).split(' ')[1] | replace('\"', '') }}"
+    key_secret: "{{ lookup('pipe', \"grep secret \" ~ libvirt_dns_key ~ \" | tr -d ';' \").split(' ')[1] | replace('\"', '') }}"
+  with_indexed_items: "{{ __libvirt_vms }}"
