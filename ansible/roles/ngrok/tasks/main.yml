@@ -1,12 +1,15 @@
 ---
 # tasks file for ngrok
 
-- name: Install unzip
+- name: Install dependencies
   apt:
     state: present
-    name: unzip
+    name: "{{ item }}"
     cache_valid_time: 3600
     update_cache: yes
+    with_items:
+      - unzip
+      - apt-transport-https
 
 - name: Download Ngrok
   unarchive:
