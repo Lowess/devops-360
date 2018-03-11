@@ -1,0 +1,35 @@
+---
+# tasks file for ngrok
+
+- name: Install dependencies
+  apt:
+    state: present
+    name: "{{ item }}"
+    cache_valid_time: 3600
+    update_cache: yes
+  with_items:
+      - unzip
+      - apt-transport-https
+      - python-pip
+      - python-dev
+      - libffi-dev
+      - libssl-dev
+
+- name: Install python packages
+  pip:
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - urllib3
+    - pyopenssl
+    - ndg-httpsclient
+    - pyasn1
+
+- name: Download Ngrok
+  unarchive:
+    src: "{{ ngrok_download_url }}"
+    dest: /usr/local/bin/
+    remote_src: yes
+    owner: root
+    group: root
+    mode: '0744'
