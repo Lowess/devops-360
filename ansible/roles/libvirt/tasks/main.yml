@@ -12,6 +12,10 @@
 #     "mac": "42:4d:01"
 # }
 #
+- name: Define VMs list
+  set_fact:
+    __libvirt_vms: "{{ libvirt_vms }}"
+
 - name: Calculate MAC addresses for VMs
   set_fact:
     __libvirt_vm_mac: >
