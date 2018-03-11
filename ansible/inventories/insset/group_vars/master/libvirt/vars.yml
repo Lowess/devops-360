@@ -1,0 +1,7 @@
+---
+
+libvirt_dns_server: 172.16.110.254
+libvirt_dns_zone: dell110.u13.org
+
+# Ip prefix used for newly created VMs
+libvirt_ip_prefix: '172.16.110'
