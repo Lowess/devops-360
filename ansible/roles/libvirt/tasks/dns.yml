@@ -27,7 +27,7 @@
     group: root
     mode: '0644'
   register: __libvirt_dhcp_entries_updated
-  with_dict: "{{ libvirt_vms }}"
+  with_dict: "{{ __libvirt_vms }}"
 
 - name: Restart DHCP service
   service:
@@ -65,7 +65,7 @@
     record: "{{ item.key }}"
     key_name: "{{ (__libvirt_dns_key_name.stdout) | replace('\"', '') | replace('{', '') }}"
     key_secret: "{{ (__libvirt_dns_key_secret.stdout) | replace('\"', '') }}"
-  with_dict: "{{ libvirt_vms }}"
+  with_dict: "{{ __libvirt_vms }}"
 
 - name: Wait for VMs to be reachable on SSH through their DNS
   wait_for:
@@ -74,4 +74,4 @@
     port: 22
     delay: 0
     timeout: 30
-  with_dict: "{{ libvirt_vms }}"
+  with_dict: "{{ __libvirt_vms }}"
