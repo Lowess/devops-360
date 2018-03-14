@@ -23,5 +23,5 @@
     zone: "{{ blue_green_dns_zone }}"
     value: "{{ blue_green_loadbalancer }}"
     record: "{{blue_green_dns }}"
-    key_name: "{{ (__blue_green_dns_key_name.stdout).split(' ') | replace('\"', '') | replace('{', '') }}"
-    key_secret: "{{ (__blue_green_dns_key_secret.stdout).split(' ') | replace('\"', '') }}"
+    key_name: "{{ (__blue_green_dns_key_name.stdout) | replace('\"', '') | replace('{', '') }}"
+    key_secret: "{{ (__blue_green_dns_key_secret.stdout) | replace('\"', '') }}"
