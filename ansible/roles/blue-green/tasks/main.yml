@@ -4,13 +4,13 @@
 # In a real wold, `key_name` and `key_secret` Should be stored in Ansible Vault file
 - name: Grab the TSIG key
   shell: >
-    grep key {{ blue_green_dns_key }}
+    grep key {{ blue_green_dns_key }} | tr -d ';' | awk '{ print $2 }'
   register: __blue_green_dns_key_name
   changed_when: False
 
 - name: Grab the TSIG secret
   shell: >
-    grep secret {{ blue_green_dns_key }} | tr -d ';'
+    grep secret {{ blue_green_dns_key }} | tr -d ';' | awk '{ print $2 }'
   register: __blue_green_dns_key_secret
   changed_when: False
 
@@ -23,5 +23,5 @@
     zone: "{{ blue_green_dns_zone }}"
     value: "{{ blue_green_loadbalancer }}"
     record: "{{blue_green_dns }}"
-    key_name: "{{ (__blue_green_dns_key_name.stdout).split(' ')[1] | replace('\"', '') | replace('{', '') }}"
-    key_secret: "{{ (__blue_green_dns_key_secret.stdout).split(' ')[1] | replace('\"', '') }}"
+    key_name: "{{ (__blue_green_dns_key_name.stdout).split(' ') | replace('\"', '') | replace('{', '') }}"
+    key_secret: "{{ (__blue_green_dns_key_secret.stdout).split(' ') | replace('\"', '') }}"
