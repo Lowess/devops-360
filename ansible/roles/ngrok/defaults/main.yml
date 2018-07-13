@@ -1,4 +1,0 @@
----
-# defaults file for ngrok
-
-ngrok_download_url: https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip

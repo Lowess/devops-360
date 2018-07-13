@@ -35,7 +35,7 @@ ansible-playbook -i inventories/vms vm-delete.yml
 ### 5 databases.yml
 
 > Configure the databases.
- 
+
 ```
 ansible-playbook -i inventories/vms databases.yml
 ```
@@ -46,4 +46,14 @@ ansible-playbook -i inventories/vms databases.yml
 
 ```
 ansible-playbook -i inventories/vms webservers.yml
+```
+
+
+### 7 ngrok.yml
+
+> Install [Ngrok](https://ngrok.com/) to open secure introspectable tunnels to localhost for easily accessing your Web UIs.
+
+
+```
+ansible-playbook -i inventories/vms ngrok.yml
 ```
