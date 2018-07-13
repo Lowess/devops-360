@@ -10,13 +10,19 @@ sudo pip install -U pip
 pip install ansible==2.4.3.0
 ```
 
+#### 0.1. Install Ansible roles dependencies from Galaxy
+
+```
+cd ansible/
+ansible-galaxy install -r requirements.yml
+```
 ## 1. Stage 1 - Drinks
 
-##### 1.1. Override [libvirt/defaults/vars.yml](ansible/roles/libvirt/defaults/main.yml) so that you can use the module on your own server
+##### 1.1. Find out which vars to override from [ansible-role-libvirt/defaults/vars.yml](https://github.com/Lowess/ansible-role-libvirt/blob/master/defaults/main.yml) so that you can use the module on your own server
 
 The role `libvirt` allows you to start VMs using KVM. You will have to override certain variables so that the role can work on your own server.
 
-> :interrobang: Determine which variables you should override from [defaults/vars.yml](ansible/roles/libvirt/defaults/main.yml) in order to make the module working on your server.
+> :interrobang: Determine which variables you should override from [defaults/vars.yml](https://github.com/Lowess/ansible-role-libvirt/blob/master/defaults/main.yml) in order to make the module working on your server.
 
 > :interrobang: Once you have identified the variables you need to override, create an inventory folder called `vms` under `<root>/ansible/inventories/` and add an empty `hosts` file under `vms`. Create `group_vars/all/libvirt` and add `group_vars/all/libvirt/vars.yml` file with your variable overrides.
 

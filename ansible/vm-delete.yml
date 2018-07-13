@@ -11,4 +11,5 @@
   become: yes
 
   roles:
-    - { role: libvirt, libvirt_vm_state: delete }
+    - role: Lowess.libvirt
+      libvirt_vm_state: delete
